@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMS - Faculty of Management Science Journal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>FMS Journal</h1>
+                    <p>Faculty of Management Science</p>
+                </div>
+            </div>
+            
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" placeholder="Search articles, authors, keywords..." id="searchInput">
+                    <button type="button" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#features">Research Areas</a></li>
+                    <li><a href="#publications">Publications</a></li>
+                    <li><a href="#submission">Submit</a></li>
+                    <li><a href="login.html" class="btn btn-outline">Login</a></li>
+                    <li><a href="signup.html" class="btn btn-primary">Join Us</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+            <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="Academic Research Background" class="hero-bg-image">
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-award"></i>
+                    <span>Peer-Reviewed Excellence</span>
+                </div>
+                <h2>Advancing Management Science Research</h2>
+                <p>A premier academic publication by the Faculty of Management Science at the University of Maiduguri, fostering innovative research in business, finance, and administration.</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Published Articles</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Countries</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Acceptance Rate</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#submission" class="btn btn-primary btn-large">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Your Research
+                    </a>
+                    <a href="#publications" class="btn btn-secondary btn-large">
+                        <i class="fas fa-book-open"></i>
+                        Browse Articles
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About FMS Journal</h2>
+                    <p class="section-description">The Faculty of Management Science Journal is a distinguished peer-reviewed publication dedicated to advancing research in management, accounting, finance, and administration. Our mission is to bridge theoretical knowledge with practical applications, fostering innovation and excellence in business research.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature-highlight">
+                            <i class="fas fa-globe-americas"></i>
+                            <div>
+                                <h4>Global Reach</h4>
+                                <p>Connecting researchers worldwide with cutting-edge management science insights</p>
+                            </div>
+                        </div>
+                        <div class="feature-highlight">
+                            <i class="fas fa-microscope"></i>
+                            <div>
+                                <h4>Rigorous Review</h4>
+                                <p>Double-blind peer review ensuring the highest academic standards</p>
+                            </div>
+                        </div>
+                        <div class="feature-highlight">
+                            <i class="fas fa-rocket"></i>
+                            <div>
+                                <h4>Innovation Focus</h4>
+                                <p>Promoting innovative research that shapes the future of management</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Research and Innovation" class="about-img">
+                    <div class="image-overlay">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <p>Watch: Our Research Impact</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="journal-metrics">
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>Publication Frequency</h3>
+                        <p>Quarterly Issues</p>
+                        <span class="metric-detail">4 issues per year</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>ISSN Numbers</h3>
+                        <p>Online: 1595-420X</p>
+                        <span class="metric-detail">Print: 3027-2483</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>Peer Review</h3>
+                        <p>Double-blind Process</p>
+                        <span class="metric-detail">Expert reviewers</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                    <div class="metric-info">
+                        <h3>DOI Assignment</h3>
+                        <p>Digital Object Identifier</p>
+                        <span class="metric-detail">For every article</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="research-areas">
+        <div class="container">
+            <h2 class="section-title">Research Areas</h2>
+            <p class="section-description">Explore our comprehensive coverage of management science disciplines</p>
+            
+            <div class="areas-grid">
+                <div class="area-card featured">
+                    <div class="area-image">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Financial Reporting">
+                        <div class="area-overlay">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="area-content">
+                        <h3>Financial Reporting & Analysis</h3>
+                        <p>Advanced research in financial reporting standards, analysis techniques, and regulatory compliance.</p>
+                        <div class="area-tags">
+                            <span class="tag">IFRS</span>
+                            <span class="tag">Financial Analysis</span>
+                            <span class="tag">Compliance</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-image">
+                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="International Accounting">
+                        <div class="area-overlay">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                    </div>
+                    <div class="area-content">
+                        <h3>International Accounting</h3>
+                        <p>Cross-border accounting practices and international financial reporting standards.</p>
+                        <div class="area-tags">
+                            <span class="tag">Global Standards</span>
+                            <span class="tag">Cross-border</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-image">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Forensic Accounting">
+                        <div class="area-overlay">
+                            <i class="fas fa-search-dollar"></i>
+                        </div>
+                    </div>
+                    <div class="area-content">
+                        <h3>Forensic Accounting</h3>
+                        <p>Investigation techniques, fraud detection, and financial crime analysis.</p>
+                        <div class="area-tags">
+                            <span class="tag">Fraud Detection</span>
+                            <span class="tag">Investigation</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-image">
+                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="FinTech">
+                        <div class="area-overlay">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="area-content">
+                        <h3>Financial Technology</h3>
+                        <p>Digital transformation in finance, blockchain, and AI applications in financial services.</p>
+                        <div class="area-tags">
+                            <span class="tag">Blockchain</span>
+                            <span class="tag">AI</span>
+                            <span class="tag">Digital Finance</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-image">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Corporate Governance">
+                        <div class="area-overlay">
+                            <i class="fas fa-building"></i>
+                        </div>
+                    </div>
+                    <div class="area-content">
+                        <h3>Corporate Governance</h3>
+                        <p>Board effectiveness, stakeholder management, and corporate responsibility.</p>
+                        <div class="area-tags">
+                            <span class="tag">Board Management</span>
+                            <span class="tag">ESG</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-image">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Sustainability">
+                        <div class="area-overlay">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                    </div>
+                    <div class="area-content">
+                        <h3>Sustainability Accounting</h3>
+                        <p>Environmental accounting, sustainability reporting, and green finance.</p>
+                        <div class="area-tags">
+                            <span class="tag">ESG Reporting</span>
+                            <span class="tag">Green Finance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="publications" class="publications">
+        <div class="container">
+            <div class="publications-header">
+                <h2 class="section-title">Latest Publications</h2>
+                <p class="section-description">Discover groundbreaking research from our latest issue - Vol. 2 No. 1 (2025)</p>
+                <div class="publication-filters">
+                    <button class="filter-btn active" data-filter="all">All Articles</button>
+                    <button class="filter-btn" data-filter="finance">Finance</button>
+                    <button class="filter-btn" data-filter="accounting">Accounting</button>
+                    <button class="filter-btn" data-filter="management">Management</button>
+                    <button class="filter-btn" data-filter="technology">Technology</button>
+                </div>
+            </div>
+            
+            <div class="publications-grid">
+                <article class="publication-card featured" data-category="technology">
+                    <div class="publication-image">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="AI in Marketing Research">
+                        <div class="publication-badge">Featured</div>
+                        <div class="publication-category">Technology</div>
+                    </div>
+                    <div class="publication-content">
+                        <div class="publication-meta">
+                            <span class="publication-date">
+                                <i class="fas fa-calendar"></i>
+                                March 2025
+                            </span>
+                            <span class="publication-views">
+                                <i class="fas fa-eye"></i>
+                                2.3k views
+                            </span>
+                        </div>
+                        <h3>The Impact of Artificial Intelligence on Marketing Strategies in Nigerian Businesses</h3>
+                        <div class="authors">
+                            <div class="author">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80" alt="Dr. Ahmed Mohammed" class="author-avatar">
+                                <span>Dr. Ahmed Mohammed</span>
+                            </div>
+                            <div class="author">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80" alt="Prof. Kemi Johnson" class="author-avatar">
+                                <span>Prof. Kemi Johnson</span>
+                            </div>
+                        </div>
+                        <p class="abstract">This comprehensive study examines how artificial intelligence technologies are revolutionizing marketing strategies across various sectors in Nigeria, with particular focus on customer engagement and predictive analytics...</p>
+                        <div class="publication-actions">
+                            <a href="#" class="btn btn-outline btn-small">
+                                <i class="fas fa-download"></i>
+                                Download PDF
+                            </a>
+                            <a href="#" class="btn btn-primary btn-small">
+                                <i class="fas fa-external-link-alt"></i>
+                                Read Full Article
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="publication-card" data-category="finance">
+                    <div class="publication-image">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Banking Systems Research">
+                        <div class="publication-category">Finance</div>
+                    </div>
+                    <div class="publication-content">
+                        <div class="publication-meta">
+                            <span class="publication-date">
+                                <i class="fas fa-calendar"></i>
+                                March 2025
+                            </span>
+                            <span class="publication-views">
+                                <i class="fas fa-eye"></i>
+                                1.8k views
+                            </span>
+                        </div>
+                        <h3>Integrated Financial Accounting Systems and Operational Performance of Deposit Money Banks</h3>
+                        <div class="authors">
+                            <div class="author">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80" alt="Dr. Emmanuel Okafor" class="author-avatar">
+                                <span>Dr. Emmanuel Okafor</span>
+                            </div>
+                        </div>
+                        <p class="abstract">An empirical analysis of how integrated financial accounting systems enhance operational efficiency and performance metrics in Nigerian deposit money banks...</p>
+                        <div class="publication-actions">
+                            <a href="#" class="btn btn-outline btn-small">
+                                <i class="fas fa-download"></i>
+                                Download PDF
+                            </a>
+                            <a href="#" class="btn btn-primary btn-small">
+                                <i class="fas fa-external-link-alt"></i>
+                                Read Full Article
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="publication-card" data-category="accounting">
+                    <div class="publication-image">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Cloud Accounting Research">
+                        <div class="publication-category">Accounting</div>
+                    </div>
+                    <div class="publication-content">
+                        <div class="publication-meta">
+                            <span class="publication-date">
+                                <i class="fas fa-calendar"></i>
+                                February 2025
+                            </span>
+                            <span class="publication-views">
+                                <i class="fas fa-eye"></i>
+                                1.5k views
+                            </span>
+                        </div>
+                        <h3>Cloud Accounting and the Qualitative Characteristics of Financial Reporting</h3>
+                        <div class="authors">
+                            <div class="author">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80" alt="Dr. Sarah Ibrahim" class="author-avatar">
+                                <span>Dr. Sarah Ibrahim</span>
+                            </div>
+                        </div>
+                        <p class="abstract">This research explores how cloud-based accounting technologies influence the qualitative characteristics of financial reporting in modern business environments...</p>
+                        <div class="publication-actions">
+                            <a href="#" class="btn btn-outline btn-small">
+                                <i class="fas fa-download"></i>
+                                Download PDF
+                            </a>
+                            <a href="#" class="btn btn-primary btn-small">
+                                <i class="fas fa-external-link-alt"></i>
+                                Read Full Article
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="publication-card" data-category="management">
+                    <div class="publication-image">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="HR Management Research">
+                        <div class="publication-category">Management</div>
+                    </div>
+                    <div class="publication-content">
+                        <div class="publication-meta">
+                            <span class="publication-date">
+                                <i class="fas fa-calendar"></i>
+                                February 2025
+                            </span>
+                            <span class="publication-views">
+                                <i class="fas fa-eye"></i>
+                                1.2k views
+                            </span>
+                        </div>
+                        <h3>Effect of Human Resource Management Practices on Employee Performance in Private Universities</h3>
+                        <div class="authors">
+                            <div class="author">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80" alt="Prof. Fatima Adebayo" class="author-avatar">
+                                <span>Prof. Fatima Adebayo</span>
+                            </div>
+                        </div>
+                        <p class="abstract">A comprehensive study examining the relationship between strategic human resource management practices and employee performance outcomes in Nigerian private universities...</p>
+                        <div class="publication-actions">
+                            <a href="#" class="btn btn-outline btn-small">
+                                <i class="fas fa-download"></i>
+                                Download PDF
+                            </a>
+                            <a href="#" class="btn btn-primary btn-small">
+                                <i class="fas fa-external-link-alt"></i>
+                                Read Full Article
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="view-all-section">
+                <a href="view-all.html" class="btn btn-secondary btn-large">
+                    <i class="fas fa-archive"></i>
+                    View All Publications
+                </a>
+                <p>Browse our complete archive of research articles</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="submission" class="submission">
+        <div class="container">
+            <div class="submission-content">
+                <div class="submission-info">
+                    <h2 class="section-title">Submit Your Research</h2>
+                    <p class="section-description">Join our community of researchers and contribute to advancing management science knowledge</p>
+                    
+                    <div class="submission-process">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Prepare Manuscript</h4>
+                                <p>Follow our submission guidelines and formatting requirements</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Submit Online</h4>
+                                <p>Upload your manuscript through our online submission system</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Peer Review</h4>
+                                <p>Expert reviewers evaluate your research using double-blind review</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Publication</h4>
+                                <p>Accepted articles are published in our quarterly issues</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="submission-guidelines">
+                    <div class="guidelines-card">
+                        <h3>Submission Requirements</h3>
+                        <div class="requirement-list">
+                            <div class="requirement-item">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <h4>Originality</h4>
+                                    <p>Manuscripts must be original and not under consideration elsewhere</p>
+                                </div>
+                            </div>
+                            <div class="requirement-item">
+                                <i class="fas fa-file-alt"></i>
+                                <div>
+                                    <h4>Conference Papers</h4>
+                                    <p>Rewritten conference papers accepted with proper permissions</p>
+                                </div>
+                            </div>
+                            <div class="requirement-item">
+                                <i class="fas fa-percentage"></i>
+                                <div>
+                                    <h4>Similarity Index</h4>
+                                    <p>Maximum 20% similarity index for acceptance</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3>Publication Fees</h3>
+                        <div class="pricing-list">
+                            <div class="pricing-item">
+                                <div class="price-info">
+                                    <span class="price-label">Review Fee</span>
+                                    <span class="price-amount">₦5,000</span>
+                                </div>
+                                <span class="price-note">Non-refundable</span>
+                            </div>
+                            <div class="pricing-item">
+                                <div class="price-info">
+                                    <span class="price-label">Publication Fee</span>
+                                    <span class="price-amount">₦40,000</span>
+                                </div>
+                                <span class="price-note">Upon acceptance</span>
+                            </div>
+                            <div class="pricing-item">
+                                <div class="price-info">
+                                    <span class="price-label">Hardcopy (Optional)</span>
+                                    <span class="price-amount">₦10,000</span>
+                                </div>
+                                <span class="price-note">Physical copy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="submission-cta">
+                <div class="cta-content">
+                    <h3>Ready to Submit Your Research?</h3>
+                    <p>Join thousands of researchers who have published with FMS Journal</p>
+                    <div class="cta-buttons">
+                        <a href="signup.html" class="btn btn-primary btn-large">
+                            <i class="fas fa-user-plus"></i>
+                            Create Account
+                        </a>
+                        <a href="#" class="btn btn-secondary btn-large">
+                            <i class="fas fa-download"></i>
+                            Download Guidelines
+                        </a>
+                    </div>
+                </div>
+                <div class="cta-image">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Research Submission">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h2>FMS Journal</h2>
+                            <p>Faculty of Management Science</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">Advancing management science research through rigorous peer-reviewed publications and fostering academic excellence in business education.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-researchgate"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-google-scholar"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h3>Journal</h3>
+                        <ul>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#features">Research Areas</a></li>
+                            <li><a href="#publications">Current Issue</a></li>
+                            <li><a href="#">Archives</a></li>
+                            <li><a href="#">Editorial Board</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-group">
+                        <h3>Authors</h3>
+                        <ul>
+                            <li><a href="#submission">Submit Article</a></li>
+                            <li><a href="#">Author Guidelines</a></li>
+                            <li><a href="#">Peer Review</a></li>
+                            <li><a href="#">Publication Ethics</a></li>
+                            <li><a href="#">Copyright</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-group">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="#">Research Tools</a></li>
+                            <li><a href="#">Citation Guide</a></li>
+                            <li><a href="#">Templates</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Contact Support</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Information</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <p>Faculty of Management Science</p>
+                                <p>University of Maiduguri</p>
+                                <p>Borno State, Nigeria</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <p>editor@fmsjournal.edu.ng</p>
+                                <p>info@fmsjournal.edu.ng</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <p>+234 (0) 76 123 4567</p>
+                                <p>+234 (0) 80 123 4567</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 FMS Journal - Faculty of Management Science. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Accessibility</a>
+                        <a href="#">Site Map</a>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
