@@ -789,7 +789,7 @@ function e($string)
     <div class="dashboard-container">
         <nav class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <div class="logo">FMS Journal</div>
+                <div class="logo">Sahel Analyst</div>
                 <div class="user-info">
                     <div class="user-avatar">
                         <?php echo substr(e($user['first_name']), 0, 1) . substr(e($user['last_name']), 0, 1); ?></div>

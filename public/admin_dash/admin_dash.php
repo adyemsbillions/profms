@@ -1,3 +1,15 @@
+<?php
+session_start();
+include('stats.php');
+
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: index.php');
+    exit;
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -948,8 +960,8 @@
                 <div class="admin-info">
                     <div class="admin-avatar">AD</div>
                     <div class="admin-details">
-                        <h3>Admin User</h3>
-                        <p>System Administrator</p>
+
+                        <p><?php echo htmlspecialchars($_SESSION['admin_name']); ?></p>
                     </div>
                 </div>
             </div>
@@ -964,7 +976,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" onclick="showSection('users')">
+                    <a class="nav-link" href="manage_users.php">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path
                                 d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 7H17c-.8 0-1.54.37-2 1l-3 4v6h2v7h3v-7h2z" />
@@ -1065,9 +1077,9 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="stat-number">2,847</div>
-                        <div class="stat-label">Total Users</div>
-                        <div class="stat-change positive">↗ +12% this month</div>
+                        <div class="stat-number"><?php echo htmlspecialchars($total_users); ?></div>
+                        <div class="stat-label">Total Authors</div>
+                        <div class="stat-change positive">↗ All time authors</div>
                     </div>
                     <div class="stat-card secondary">
                         <div class="stat-header">
@@ -1078,9 +1090,9 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="stat-number">24</div>
-                        <div class="stat-label">Active Journals</div>
-                        <div class="stat-change positive">↗ +2 new journals</div>
+                        <div class="stat-number"><?php echo htmlspecialchars($total_articles); ?></div>
+                        <div class="stat-label">All Articles</div>
+                        <div class="stat-change positive">↗Total articles submited for all journals</div>
                     </div>
                     <div class="stat-card accent">
                         <div class="stat-header">
@@ -1091,9 +1103,9 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="stat-number">1,523</div>
-                        <div class="stat-label">Articles Submitted</div>
-                        <div class="stat-change positive">↗ +8% this week</div>
+                        <div class="stat-number"><?php echo htmlspecialchars($total_rejected); ?></div>
+                        <div class="stat-label">Articles been rejected</div>
+                        <div class="stat-change positive">↗ All time</div>
                     </div>
                     <div class="stat-card warning">
                         <div class="stat-header">
@@ -1104,9 +1116,9 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="stat-number">47</div>
-                        <div class="stat-label">Pending Reviews</div>
-                        <div class="stat-change negative">↗ +5 since yesterday</div>
+                        <div class="stat-number"><?php echo htmlspecialchars($total_inquiries); ?></div>
+                        <div class="stat-label">Pending Support Request</div>
+                        <div class="stat-change negative">↗ Suport request Not Attended To</div>
                     </div>
                     <div class="stat-card danger">
                         <div class="stat-header">
@@ -1117,9 +1129,9 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="stat-number">12</div>
-                        <div class="stat-label">Open Support Tickets</div>
-                        <div class="stat-change negative">↗ +3 urgent tickets</div>
+                        <div class="stat-number"><?php echo htmlspecialchars($total_approved); ?></div>
+                        <div class="stat-label">Total Approved articles</div>
+                        <div class="stat-change negative">↗ All Time</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-header">
@@ -1140,16 +1152,14 @@
                     <div class="chart-container">
                         <div class="chart-header">
                             <h3 class="chart-title">Article Submissions Over Time</h3>
-                            <select class="form-select" style="width: auto;">
-                                <option>Last 30 days</option>
-                                <option>Last 3 months</option>
-                                <option>Last year</option>
-                            </select>
                         </div>
-                        <div class="chart-placeholder">
-                            📊 Chart showing article submission trends would be displayed here
-                        </div>
+                        <?php if (empty($submission_trends)): ?>
+                            <div class="alert alert-info">No submission data available for the chart.</div>
+                        <?php else: ?>
+                            <canvas id="submissionTrendChart"></canvas>
+                        <?php endif; ?>
                     </div>
+                    <a href="manage_articles.php" class="btn btn-primary mt-4">Manage Articles</a>
 
                     <div class="info-card">
                         <div class="card-header">
@@ -1218,146 +1228,6 @@
                 </div>
             </section>
 
-            <!-- User Management Section -->
-            <section id="users" class="content-section">
-                <div class="page-header">
-                    <div>
-                        <h1 class="page-title">User Management</h1>
-                        <p class="page-subtitle">Manage authors, reviewers, and editors</p>
-                    </div>
-                    <div class="header-actions">
-                        <button class="btn btn-outline btn-small">Export Users</button>
-                        <button class="btn btn-primary btn-small" onclick="openModal('addUserModal')">Add New
-                            User</button>
-                    </div>
-                </div>
-
-                <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                    <div class="stat-card">
-                        <div class="stat-number">1,847</div>
-                        <div class="stat-label">Authors</div>
-                    </div>
-                    <div class="stat-card secondary">
-                        <div class="stat-number">156</div>
-                        <div class="stat-label">Reviewers</div>
-                    </div>
-                    <div class="stat-card accent">
-                        <div class="stat-number">24</div>
-                        <div class="stat-label">Editors</div>
-                    </div>
-                    <div class="stat-card warning">
-                        <div class="stat-number">12</div>
-                        <div class="stat-label">Suspended Users</div>
-                    </div>
-                </div>
-
-                <div class="table-container">
-                    <div class="table-header">
-                        <h3 class="table-title">All Users</h3>
-                        <div class="table-actions">
-                            <div class="search-box">
-                                <svg class="search-icon" viewBox="0 0 24 24">
-                                    <path
-                                        d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
-                                </svg>
-                                <input type="text" class="search-input" placeholder="Search users...">
-                            </div>
-                            <select class="form-select" style="width: auto;">
-                                <option>All Roles</option>
-                                <option>Authors</option>
-                                <option>Reviewers</option>
-                                <option>Editors</option>
-                            </select>
-                        </div>
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Institution</th>
-                                <th>Status</th>
-                                <th>Joined</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                        <div class="user-avatar" style="width: 32px; height: 32px; font-size: 0.8rem;">
-                                            JS</div>
-                                        <div>
-                                            <strong>Dr. John Smith</strong><br>
-                                            <small style="color: var(--text-light);">Research Scholar</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>john.smith@university.edu</td>
-                                <td><span class="status-badge status-active">Author</span></td>
-                                <td>Stanford University</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Nov 15, 2024</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-outline btn-small">Edit</button>
-                                        <button class="btn btn-warning btn-small">Suspend</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                        <div class="user-avatar"
-                                            style="width: 32px; height: 32px; font-size: 0.8rem; background: var(--secondary-color);">
-                                            JD</div>
-                                        <div>
-                                            <strong>Dr. Jane Doe</strong><br>
-                                            <small style="color: var(--text-light);">Senior Reviewer</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>jane.doe@mit.edu</td>
-                                <td><span class="status-badge status-approved">Reviewer</span></td>
-                                <td>MIT</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Oct 22, 2024</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-outline btn-small">Edit</button>
-                                        <button class="btn btn-warning btn-small">Suspend</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                        <div class="user-avatar"
-                                            style="width: 32px; height: 32px; font-size: 0.8rem; background: var(--accent-color);">
-                                            MW</div>
-                                        <div>
-                                            <strong>Dr. Mike Wilson</strong><br>
-                                            <small style="color: var(--text-light);">Chief Editor</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>mike.wilson@harvard.edu</td>
-                                <td><span class="status-badge status-pending">Editor</span></td>
-                                <td>Harvard University</td>
-                                <td><span class="status-badge status-suspended">Suspended</span></td>
-                                <td>Sep 10, 2024</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-outline btn-small">Edit</button>
-                                        <button class="btn btn-secondary btn-small">Activate</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
 
             <!-- Journal Management Section -->
             <section id="journals" class="content-section">
@@ -2340,6 +2210,7 @@
             lastTouchEnd = now;
         }, false);
     </script>
+    <script src="submission_trends.js"></script>
 </body>
 
 </html>

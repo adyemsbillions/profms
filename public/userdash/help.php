@@ -85,252 +85,252 @@ function e($string)
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Help & Support</title>
     <style>
-        /* Reset and base styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* Reset and base styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f4f7fc;
-            color: #1f2937;
-            line-height: 1.5;
-            padding: 2rem;
-        }
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #f4f7fc;
+        color: #1f2937;
+        line-height: 1.5;
+        padding: 2rem;
+    }
 
-        /* Messages */
-        .message {
-            max-width: 800px;
-            margin: 1rem auto;
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 500;
+    /* Messages */
+    .message {
+        max-width: 800px;
+        margin: 1rem auto;
+        padding: 1rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .message.success {
+        background: #dcfce7;
+        color: #166534;
+        border: 1px solid #86efac;
+    }
+
+    .message.error {
+        background: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #f87171;
+    }
+
+    /* Page header */
+    .page-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .page-title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-bottom: 0.5rem;
+    }
+
+    .page-subtitle {
+        color: #6b7280;
+        font-size: 1.1rem;
+        font-weight: 400;
+    }
+
+    /* Container */
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    /* User info section */
+    .user-info-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        margin-bottom: 2rem;
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .user-info-section:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-avatar {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        color: white;
+        font-weight: 700;
+        font-size: 2.5rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        transition: transform 0.3s ease;
+    }
+
+    .user-avatar:hover {
+        transform: scale(1.05);
+    }
+
+    .user-details {
+        flex: 1;
+    }
+
+    .user-details p {
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .user-details p strong {
+        color: #374151;
+        font-weight: 600;
+    }
+
+    /* Contact form section */
+    .form-container {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-container:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .form-input,
+    .form-textarea {
+        width: 100%;
+        padding: 0.875rem;
+        font-size: 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        background: #f9fafb;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 0.875rem 1.75rem;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+        background: #1e3a8a;
+        color: white;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background: #2563eb;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Support contact info */
+    .support-contact {
+        margin-top: 2rem;
+        text-align: center;
+        color: #6b7280;
+    }
+
+    .support-contact p {
+        margin-bottom: 0.5rem;
+    }
+
+    .support-contact a {
+        color: #3b82f6;
+        text-decoration: none;
+    }
+
+    .support-contact a:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .user-info-section {
+            flex-direction: column;
+            align-items: center;
             text-align: center;
         }
 
-        .message.success {
-            background: #dcfce7;
-            color: #166534;
-            border: 1px solid #86efac;
+        .form-container {
+            padding: 1.5rem;
         }
 
-        .message.error {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #f87171;
-        }
-
-        /* Page header */
         .page-header {
-            text-align: center;
-            margin-bottom: 2rem;
+            text-align: left;
+        }
+    }
+
+    @media (max-width: 480px) {
+        body {
+            padding: 1rem;
         }
 
         .page-title {
-            font-size: 2.25rem;
-            font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 0.5rem;
+            font-size: 1.75rem;
         }
 
         .page-subtitle {
-            color: #6b7280;
-            font-size: 1.1rem;
-            font-weight: 400;
+            font-size: 1rem;
         }
 
-        /* Container */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* User info section */
-        .user-info-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 2rem;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .user-info-section:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        .btn {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.9rem;
         }
 
         .user-avatar {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #3b82f6, #60a5fa);
-            color: white;
-            font-weight: 700;
-            font-size: 2.5rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            user-select: none;
-            transition: transform 0.3s ease;
+            width: 80px;
+            height: 80px;
+            font-size: 2rem;
         }
-
-        .user-avatar:hover {
-            transform: scale(1.05);
-        }
-
-        .user-details {
-            flex: 1;
-        }
-
-        .user-details p {
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .user-details p strong {
-            color: #374151;
-            font-weight: 600;
-        }
-
-        /* Contact form section */
-        .form-container {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .form-container:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .form-input,
-        .form-textarea {
-            width: 100%;
-            padding: 0.875rem;
-            font-size: 1rem;
-            border: 1px solid #d1d5db;
-            border-radius: 10px;
-            background: #f9fafb;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .form-input:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        /* Buttons */
-        .btn {
-            padding: 0.875rem 1.75rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn-primary {
-            background: #1e3a8a;
-            color: white;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background: #2563eb;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Support contact info */
-        .support-contact {
-            margin-top: 2rem;
-            text-align: center;
-            color: #6b7280;
-        }
-
-        .support-contact p {
-            margin-bottom: 0.5rem;
-        }
-
-        .support-contact a {
-            color: #3b82f6;
-            text-decoration: none;
-        }
-
-        .support-contact a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .user-info-section {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .form-container {
-                padding: 1.5rem;
-            }
-
-            .page-header {
-                text-align: left;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 1rem;
-            }
-
-            .page-title {
-                font-size: 1.75rem;
-            }
-
-            .page-subtitle {
-                font-size: 1rem;
-            }
-
-            .btn {
-                padding: 0.75rem 1.25rem;
-                font-size: 0.9rem;
-            }
-
-            .user-avatar {
-                width: 80px;
-                height: 80px;
-                font-size: 2rem;
-            }
-        }
+    }
     </style>
 </head>
 
@@ -341,10 +341,10 @@ function e($string)
     </div>
 
     <?php if ($success_message): ?>
-        <div class="message success"><?= e($success_message) ?></div>
+    <div class="message success"><?= e($success_message) ?></div>
     <?php endif; ?>
     <?php if ($error_message): ?>
-        <div class="message error"><?= e($error_message) ?></div>
+    <div class="message error"><?= e($error_message) ?></div>
     <?php endif; ?>
 
     <div class="container">
@@ -357,20 +357,20 @@ function e($string)
                 <p><strong>Name:</strong> <?= e($user['first_name'] . ' ' . $user['last_name']) ?></p>
                 <p><strong>Email:</strong> <?= e($user['email']) ?></p>
                 <?php if (!empty($user['institution'])): ?>
-                    <p><strong>Institution:</strong> <?= e($user['institution']) ?></p>
+                <p><strong>Institution:</strong> <?= e($user['institution']) ?></p>
                 <?php endif; ?>
                 <?php if (!empty($user['position'])): ?>
-                    <p><strong>Designation:</strong> <?= e($user['position']) ?></p>
+                <p><strong>Designation:</strong> <?= e($user['position']) ?></p>
                 <?php endif; ?>
                 <?php if (!empty($user['research_interests'])): ?>
-                    <p><strong>Bio:</strong> <?= e($user['research_interests']) ?></p>
+                <p><strong>Bio:</strong> <?= e($user['research_interests']) ?></p>
                 <?php endif; ?>
                 <?php if (!empty($user['orcid'])): ?>
-                    <p><strong>ORCID ID:</strong> <?= e($user['orcid']) ?></p>
+                <p><strong>ORCID ID:</strong> <?= e($user['orcid']) ?></p>
                 <?php endif; ?>
                 <?php if (!empty($user['linkedin'])): ?>
-                    <p><strong>LinkedIn:</strong> <a href="<?= e($user['linkedin']) ?>"
-                            target="_blank"><?= e($user['linkedin']) ?></a></p>
+                <p><strong>LinkedIn:</strong> <a href="<?= e($user['linkedin']) ?>"
+                        target="_blank"><?= e($user['linkedin']) ?></a></p>
                 <?php endif; ?>
             </div>
         </div>
@@ -398,10 +398,10 @@ function e($string)
 
         <!-- Support Contact Info -->
         <div class="support-contact">
-            <p>Need immediate assistance? Contact us directly:</p>
-            <p>Email: <a href="mailto:support@example.com">support@example.com</a></p>
-            <p>Phone: <a href="tel:+1234567890">+1 (234) 567-890</a></p>
-            <p>Available Monday–Friday, 9 AM–5 PM</p>
+            <p>Need immediate assistance? Contact us:</p>
+            <p>Email: <a href="mailto:support@example.com">fadimaalfa12@unimaid.edu.ng</a></p>
+            <p>Phone: <a href="tel:+1234567890">+2348034536092</a></p>
+            <p>faculty of management sciences university of maiduguri</p>
         </div>
     </div>
 </body>
