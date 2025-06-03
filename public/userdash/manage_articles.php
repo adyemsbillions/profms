@@ -104,16 +104,12 @@ $stmt->close();
             background-color: var(--bg-lighter);
             color: var(--text-color);
             line-height: 1.5;
-            padding: 1.5rem;
+            padding: 1rem;
         }
 
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 1.5rem;
-            background-color: var(--bg-color);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         h1 {
@@ -132,16 +128,17 @@ $stmt->close();
         }
 
         .form-card,
-        .table-card {
-            background-color: var(--bg-light);
-            padding: 1.5rem;
+        .article-card {
+            background-color: var(--bg-color);
+            padding: 1.25rem;
             border-radius: 8px;
             border: 1px solid var(--border-color);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .form-group {
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
         }
 
         label {
@@ -156,11 +153,11 @@ $stmt->close();
         select,
         textarea {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.65rem;
             border: 1px solid var(--border-color);
             border-radius: 6px;
             font-size: 0.9rem;
-            background-color: var(--bg-color);
+            background-color: var(--bg-light);
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
@@ -169,25 +166,25 @@ $stmt->close();
         textarea:focus {
             outline: none;
             border-color: var(--primary-light);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 80px;
         }
 
         .status-readonly {
             font-size: 0.9rem;
             color: var(--text-light);
             background-color: var(--bg-lighter);
-            padding: 0.75rem;
+            padding: 0.65rem;
             border-radius: 6px;
             border: 1px solid var(--border-color);
         }
 
         .btn {
-            padding: 0.75rem 1.25rem;
+            padding: 0.65rem 1rem;
             border-radius: 6px;
             font-size: 0.9rem;
             font-weight: 500;
@@ -196,6 +193,7 @@ $stmt->close();
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            touch-action: manipulation;
         }
 
         .btn-primary {
@@ -223,22 +221,23 @@ $stmt->close();
 
         .error,
         .success {
-            padding: 1rem;
+            padding: 0.75rem;
             border-radius: 6px;
-            margin-bottom: 1.25rem;
-            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            border: 1px solid;
         }
 
         .error {
             background-color: rgba(220, 38, 38, 0.05);
             color: var(--error-color);
-            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-color: rgba(220, 38, 38, 0.2);
         }
 
         .success {
             background-color: rgba(5, 150, 105, 0.05);
             color: var(--success-color);
-            border: 1px solid rgba(5, 150, 105, 0.2);
+            border-color: rgba(5, 150, 105, 0.2);
         }
 
         .error ul {
@@ -249,37 +248,36 @@ $stmt->close();
 
         .error-message {
             color: var(--error-color);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-align: center;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
         }
 
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
+        .article-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .article-card__field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .article-card__label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .article-card__value {
             font-size: 0.9rem;
-        }
-
-        th,
-        td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        th {
-            background-color: var(--bg-lighter);
-            font-weight: 600;
             color: var(--text-color);
         }
 
-        tr:last-child td {
-            border-bottom: none;
-        }
-
         .status-badge {
-            padding: 0.3rem 0.8rem;
+            padding: 0.25rem 0.75rem;
             border-radius: 9999px;
             font-size: 0.8rem;
             font-weight: 500;
@@ -311,28 +309,76 @@ $stmt->close();
             background-color: var(--error-color);
         }
 
-        .action-buttons .btn {
-            padding: 0.5rem 1rem;
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (min-width: 640px) {
+            body {
+                padding: 1.5rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .form-card,
+            .article-card {
+                padding: 1.5rem;
+            }
+
+            .article-card {
+                display: grid;
+                grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .article-card__field {
+                flex-direction: column;
+            }
+
+            .article-card__label {
+                display: none;
+            }
+
+            .article-card__value {
+                font-size: 0.9rem;
+            }
+
+            .article-card--header {
+                background-color: var(--bg-lighter);
+                font-weight: 600;
+                color: var(--text-color);
+            }
         }
 
         @media (max-width: 640px) {
-            .container {
-                padding: 1rem;
-            }
-
             h1 {
                 font-size: 1.5rem;
             }
 
-            th,
-            td {
-                padding: 0.5rem;
-                font-size: 0.85rem;
+            h2 {
+                font-size: 1.1rem;
             }
 
             .btn {
-                padding: 0.6rem 1rem;
+                padding: 0.5rem 0.75rem;
                 font-size: 0.85rem;
+            }
+
+            .form-group {
+                margin-bottom: 0.75rem;
+            }
+
+            input[type="text"],
+            select,
+            textarea,
+            .status-readonly {
+                font-size: 0.85rem;
+                padding: 0.5rem;
             }
         }
     </style>
@@ -400,61 +446,78 @@ $stmt->close();
                         <div class="status-readonly"><?= ucfirst(str_replace('_', ' ', e($edit_article['status']))) ?></div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group action-buttons">
                         <button type="submit" class="btn btn-primary">Update Article</button>
                         <a href="manage_articles.php" class="btn btn-outline">Cancel</a>
                     </div>
                 </form>
             </div>
         <?php else: ?>
-            <div class="table-card">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Journal</th>
-                            <th>Submission Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if ($articles_result->num_rows === 0): ?>
-                            <tr>
-                                <td colspan="5">No articles found.</td>
-                            </tr>
-                        <?php else: ?>
-                            <?php
-                            function statusBadgeClass($status)
-                            {
-                                $map = [
-                                    'draft' => 'status-draft',
-                                    'submitted' => 'status-submitted',
-                                    'under_review' => 'status-under_review',
-                                    'revision' => 'status-revision',
-                                    'approved' => 'status-approved',
-                                    'published' => 'status-published',
-                                    'rejected' => 'status-rejected',
-                                ];
-                                return $map[$status] ?? 'status-submitted';
-                            }
-                            while ($article = $articles_result->fetch_assoc()):
-                            ?>
-                                <tr>
-                                    <td><?= e($article['title']) ?></td>
-                                    <td><?= e($article['journal']) ?></td>
-                                    <td><?= date("M d, Y", strtotime($article['submission_date'])) ?></td>
-                                    <td><span
-                                            class="status-badge <?= statusBadgeClass($article['status']) ?>"><?= ucfirst(str_replace('_', ' ', $article['status'])) ?></span>
-                                    </td>
-                                    <td class="action-buttons">
-                                        <a href="manage_articles.php?edit=<?= $article['id'] ?>" class="btn btn-outline">Edit</a>
-                                    </td>
-                                </tr>
-                            <?php endwhile; ?>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+            <div class="article-list">
+                <?php if ($articles_result->num_rows === 0): ?>
+                    <div class="article-card">
+                        <p>No articles found.</p>
+                    </div>
+                <?php else: ?>
+                    <div class="article-card article-card--header">
+                        <div class="article-card__field">
+                            <span class="article-card__value">Title</span>
+                        </div>
+                        <div class="article-card__field">
+                            <span class="article-card__value">Journal</span>
+                        </div>
+                        <div class="article-card__field">
+                            <span class="article-card__value">Submission Date</span>
+                        </div>
+                        <div class="article-card__field">
+                            <span class="article-card__value">Status</span>
+                        </div>
+                        <div class="article-card__field">
+                            <span class="article-card__value">Actions</span>
+                        </div>
+                    </div>
+                    <?php
+                    function statusBadgeClass($status)
+                    {
+                        $map = [
+                            'draft' => 'status-draft',
+                            'submitted' => 'status-submitted',
+                            'under_review' => 'status-under_review',
+                            'revision' => 'status-revision',
+                            'approved' => 'status-approved',
+                            'published' => 'status-published',
+                            'rejected' => 'status-rejected',
+                        ];
+                        return $map[$status] ?? 'status-submitted';
+                    }
+                    while ($article = $articles_result->fetch_assoc()):
+                    ?>
+                        <div class="article-card">
+                            <div class="article-card__field">
+                                <span class="article-card__label">Title</span>
+                                <span class="article-card__value"><?= e($article['title']) ?></span>
+                            </div>
+                            <div class="article-card__field">
+                                <span class="article-card__label">Journal</span>
+                                <span class="article-card__value"><?= e($article['journal']) ?></span>
+                            </div>
+                            <div class="article-card__field">
+                                <span class="article-card__label">Submission Date</span>
+                                <span
+                                    class="article-card__value"><?= date("M d, Y", strtotime($article['submission_date'])) ?></span>
+                            </div>
+                            <div class="article-card__field">
+                                <span class="article-card__label">Status</span>
+                                <span
+                                    class="status-badge <?= statusBadgeClass($article['status']) ?>"><?= ucfirst(str_replace('_', ' ', $article['status'])) ?></span>
+                            </div>
+                            <div class="article-card__field action-buttons">
+                                <span class="article-card__label">Actions</span>
+                                <a href="manage_articles.php?edit=<?= $article['id'] ?>" class="btn btn-outline">Edit</a>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
     </div>
