@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Publications - FMS Journal</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -16,11 +20,11 @@
                     <i class="fas fa-graduation-cap"></i>
                 </div>
                 <div class="logo-text">
-                    <h1><a href="index.html">FMS Journal</a></h1>
+                    <h1><a href="index.php">FMS Journal</a></h1>
                     <p>Faculty of Management Science</p>
                 </div>
             </div>
-            
+
             <div class="search-container">
                 <div class="search-box">
                     <input type="text" placeholder="Search articles, authors, keywords..." id="searchInput">
@@ -29,16 +33,16 @@
                     </button>
                 </div>
             </div>
-            
+
             <nav>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="index.html#features">Research Areas</a></li>
-                    <li><a href="view-all.html" class="active">Publications</a></li>
-                    <li><a href="index.html#submission">Submit</a></li>
-                    <li><a href="login.html" class="btn btn-outline">Login</a></li>
-                    <li><a href="signup.html" class="btn btn-primary">Join Us</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="index.php#about">About</a></li>
+                    <li><a href="index.php#features">Research Areas</a></li>
+                    <li><a href="view-all.php" class="active">Publications</a></li>
+                    <li><a href="index.php#submission">Submit</a></li>
+                    <li><a href="login.php" class="btn btn-outline">Login</a></li>
+                    <li><a href="signup.php" class="btn btn-primary">Join Us</a></li>
                 </ul>
                 <div class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
@@ -50,7 +54,7 @@
     <section class="page-header">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html">Home</a>
+                <a href="index.php">Home</a>
                 <i class="fas fa-chevron-right"></i>
                 <span>All Publications</span>
             </div>
@@ -106,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="view-options">
                     <div class="results-info">
                         <span id="resultsCount">Showing 24 of 156 articles</span>
@@ -132,7 +136,8 @@
 
                     <article class="publication-card" data-category="technology" data-year="2025" data-views="2300">
                         <div class="publication-image">
-                            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="AI in Marketing Research">
+                            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+                                alt="AI in Marketing Research">
                             <div class="publication-category">Technology</div>
                         </div>
                         <div class="publication-content">
@@ -150,13 +155,16 @@
                                     12 citations
                                 </span>
                             </div>
-                            <h3>The Impact of Artificial Intelligence on Marketing Strategies in Nigerian Businesses</h3>
+                            <h3>The Impact of Artificial Intelligence on Marketing Strategies in Nigerian Businesses
+                            </h3>
                             <div class="authors">
                                 <span>Dr. Ahmed Mohammed, Prof. Kemi Johnson</span>
                             </div>
-                            <p class="abstract">This comprehensive study examines how artificial intelligence technologies are revolutionizing marketing strategies across various sectors in Nigeria...</p>
+                            <p class="abstract">This comprehensive study examines how artificial intelligence
+                                technologies are revolutionizing marketing strategies across various sectors in
+                                Nigeria...</p>
                             <div class="publication-actions">
-                                <a href="article-details.html?id=1" class="btn btn-outline btn-small">
+                                <a href="article-details.php?id=1" class="btn btn-outline btn-small">
                                     <i class="fas fa-eye"></i>
                                     View Details
                                 </a>
@@ -170,7 +178,8 @@
 
                     <article class="publication-card" data-category="finance" data-year="2025" data-views="1800">
                         <div class="publication-image">
-                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Banking Systems Research">
+                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+                                alt="Banking Systems Research">
                             <div class="publication-category">Finance</div>
                         </div>
                         <div class="publication-content">
@@ -188,13 +197,15 @@
                                     8 citations
                                 </span>
                             </div>
-                            <h3>Integrated Financial Accounting Systems and Operational Performance of Deposit Money Banks</h3>
+                            <h3>Integrated Financial Accounting Systems and Operational Performance of Deposit Money
+                                Banks</h3>
                             <div class="authors">
                                 <span>Dr. Emmanuel Okafor, Dr. Sarah Williams</span>
                             </div>
-                            <p class="abstract">An empirical analysis of how integrated financial accounting systems enhance operational efficiency and performance metrics...</p>
+                            <p class="abstract">An empirical analysis of how integrated financial accounting systems
+                                enhance operational efficiency and performance metrics...</p>
                             <div class="publication-actions">
-                                <a href="article-details.html?id=2" class="btn btn-outline btn-small">
+                                <a href="article-details.php?id=2" class="btn btn-outline btn-small">
                                     <i class="fas fa-eye"></i>
                                     View Details
                                 </a>
@@ -208,7 +219,8 @@
 
                     <article class="publication-card" data-category="accounting" data-year="2025" data-views="1500">
                         <div class="publication-image">
-                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Cloud Accounting Research">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+                                alt="Cloud Accounting Research">
                             <div class="publication-category">Accounting</div>
                         </div>
                         <div class="publication-content">
@@ -230,9 +242,10 @@
                             <div class="authors">
                                 <span>Dr. Sarah Ibrahim, Prof. Michael Chen</span>
                             </div>
-                            <p class="abstract">This research explores how cloud-based accounting technologies influence the qualitative characteristics of financial reporting...</p>
+                            <p class="abstract">This research explores how cloud-based accounting technologies influence
+                                the qualitative characteristics of financial reporting...</p>
                             <div class="publication-actions">
-                                <a href="article-details.html?id=3" class="btn btn-outline btn-small">
+                                <a href="article-details.php?id=3" class="btn btn-outline btn-small">
                                     <i class="fas fa-eye"></i>
                                     View Details
                                 </a>
@@ -246,7 +259,8 @@
 
                     <article class="publication-card" data-category="management" data-year="2025" data-views="1200">
                         <div class="publication-image">
-                            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="HR Management Research">
+                            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+                                alt="HR Management Research">
                             <div class="publication-category">Management</div>
                         </div>
                         <div class="publication-content">
@@ -264,13 +278,15 @@
                                     6 citations
                                 </span>
                             </div>
-                            <h3>Effect of Human Resource Management Practices on Employee Performance in Private Universities</h3>
+                            <h3>Effect of Human Resource Management Practices on Employee Performance in Private
+                                Universities</h3>
                             <div class="authors">
                                 <span>Prof. Fatima Adebayo, Dr. James Thompson</span>
                             </div>
-                            <p class="abstract">A comprehensive study examining the relationship between strategic human resource management practices and employee performance...</p>
+                            <p class="abstract">A comprehensive study examining the relationship between strategic human
+                                resource management practices and employee performance...</p>
                             <div class="publication-actions">
-                                <a href="article-details.html?id=4" class="btn btn-outline btn-small">
+                                <a href="article-details.php?id=4" class="btn btn-outline btn-small">
                                     <i class="fas fa-eye"></i>
                                     View Details
                                 </a>
@@ -290,7 +306,8 @@
 
                     <article class="publication-card" data-category="governance" data-year="2024" data-views="2100">
                         <div class="publication-image">
-                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Corporate Governance">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+                                alt="Corporate Governance">
                             <div class="publication-category">Governance</div>
                         </div>
                         <div class="publication-content">
@@ -312,9 +329,10 @@
                             <div class="authors">
                                 <span>Prof. David Okonkwo, Dr. Lisa Anderson</span>
                             </div>
-                            <p class="abstract">This study investigates the relationship between corporate governance mechanisms and firm performance in emerging African markets...</p>
+                            <p class="abstract">This study investigates the relationship between corporate governance
+                                mechanisms and firm performance in emerging African markets...</p>
                             <div class="publication-actions">
-                                <a href="article-details.html?id=5" class="btn btn-outline btn-small">
+                                <a href="article-details.php?id=5" class="btn btn-outline btn-small">
                                     <i class="fas fa-eye"></i>
                                     View Details
                                 </a>
@@ -328,7 +346,8 @@
 
                     <article class="publication-card" data-category="economics" data-year="2024" data-views="1900">
                         <div class="publication-image">
-                            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Economic Analysis">
+                            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+                                alt="Economic Analysis">
                             <div class="publication-category">Economics</div>
                         </div>
                         <div class="publication-content">
@@ -350,9 +369,10 @@
                             <div class="authors">
                                 <span>Dr. Amina Hassan, Prof. Robert Clarke</span>
                             </div>
-                            <p class="abstract">An empirical examination of the relationship between macroeconomic variables and stock market performance across West African countries...</p>
+                            <p class="abstract">An empirical examination of the relationship between macroeconomic
+                                variables and stock market performance across West African countries...</p>
                             <div class="publication-actions">
-                                <a href="article-details.html?id=6" class="btn btn-outline btn-small">
+                                <a href="article-details.php?id=6" class="btn btn-outline btn-small">
                                     <i class="fas fa-eye"></i>
                                     View Details
                                 </a>
@@ -399,7 +419,8 @@
                             <p>Faculty of Management Science</p>
                         </div>
                     </div>
-                    <p class="footer-description">Advancing management science research through rigorous peer-reviewed publications and fostering academic excellence in business education.</p>
+                    <p class="footer-description">Advancing management science research through rigorous peer-reviewed
+                        publications and fostering academic excellence in business education.</p>
                     <div class="social-links">
                         <a href="#" class="social-link">
                             <i class="fab fa-facebook"></i>
@@ -418,22 +439,22 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="footer-links">
                     <div class="link-group">
                         <h3>Journal</h3>
                         <ul>
-                            <li><a href="index.html#about">About Us</a></li>
-                            <li><a href="index.html#features">Research Areas</a></li>
-                            <li><a href="view-all.html">Current Issue</a></li>
-                            <li><a href="view-all.html">Archives</a></li>
+                            <li><a href="index.php#about">About Us</a></li>
+                            <li><a href="index.php#features">Research Areas</a></li>
+                            <li><a href="view-all.php">Current Issue</a></li>
+                            <li><a href="view-all.php">Archives</a></li>
                             <li><a href="#">Editorial Board</a></li>
                         </ul>
                     </div>
                     <div class="link-group">
                         <h3>Authors</h3>
                         <ul>
-                            <li><a href="index.html#submission">Submit Article</a></li>
+                            <li><a href="index.php#submission">Submit Article</a></li>
                             <li><a href="#">Author Guidelines</a></li>
                             <li><a href="#">Peer Review</a></li>
                             <li><a href="#">Publication Ethics</a></li>
@@ -451,7 +472,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="footer-contact">
                     <h3>Contact Information</h3>
                     <div class="contact-info">
@@ -480,7 +501,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <div class="footer-bottom-content">
                     <p>&copy; 2025 FMS Journal - Faculty of Management Science. All rights reserved.</p>
@@ -497,4 +518,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

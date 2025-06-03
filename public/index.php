@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FMS - Faculty of Management Science Journal</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -20,7 +24,7 @@
                     <p>Faculty of Management Science</p>
                 </div>
             </div>
-            
+
             <div class="search-container">
                 <div class="search-box">
                     <input type="text" placeholder="Search articles, authors, keywords..." id="searchInput">
@@ -29,7 +33,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
@@ -37,8 +41,8 @@
                     <li><a href="#features">Research Areas</a></li>
                     <li><a href="#publications">Publications</a></li>
                     <li><a href="#submission">Submit</a></li>
-                    <li><a href="login.html" class="btn btn-outline">Login</a></li>
-                    <li><a href="signup.html" class="btn btn-primary">Join Us</a></li>
+                    <li><a href="login.php" class="btn btn-outline">Login</a></li>
+                    <li><a href="signup.php" class="btn btn-primary">Join Us</a></li>
                 </ul>
                 <div class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
@@ -50,7 +54,8 @@
     <section id="home" class="hero">
         <div class="hero-background">
             <div class="hero-overlay"></div>
-            <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="Academic Research Background" class="hero-bg-image">
+            <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80"
+                alt="Academic Research Background" class="hero-bg-image">
         </div>
         <div class="container">
             <div class="hero-content">
@@ -59,7 +64,8 @@
                     <span>Peer-Reviewed Excellence</span>
                 </div>
                 <h2>Advancing Management Science Research</h2>
-                <p>A premier academic publication by the Faculty of Management Science at the University of Maiduguri, fostering innovative research in business, finance, and administration.</p>
+                <p>A premier academic publication by the Faculty of Management Science at the University of Maiduguri,
+                    fostering innovative research in business, finance, and administration.</p>
                 <div class="hero-stats">
                     <div class="stat-item">
                         <span class="stat-number">500+</span>
@@ -98,8 +104,11 @@
             <div class="about-content">
                 <div class="about-text">
                     <h2 class="section-title">About FMS Journal</h2>
-                    <p class="section-description">The Faculty of Management Science Journal is a distinguished peer-reviewed publication dedicated to advancing research in management, accounting, finance, and administration. Our mission is to bridge theoretical knowledge with practical applications, fostering innovation and excellence in business research.</p>
-                    
+                    <p class="section-description">The Faculty of Management Science Journal is a distinguished
+                        peer-reviewed publication dedicated to advancing research in management, accounting, finance,
+                        and administration. Our mission is to bridge theoretical knowledge with practical applications,
+                        fostering innovation and excellence in business research.</p>
+
                     <div class="about-features">
                         <div class="feature-highlight">
                             <i class="fas fa-globe-americas"></i>
@@ -125,7 +134,8 @@
                     </div>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Research and Innovation" class="about-img">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                        alt="Research and Innovation" class="about-img">
                     <div class="image-overlay">
                         <div class="play-button">
                             <i class="fas fa-play"></i>
@@ -134,7 +144,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="journal-metrics">
                 <div class="metric-card">
                     <div class="metric-icon">
@@ -184,18 +194,20 @@
         <div class="container">
             <h2 class="section-title">Research Areas</h2>
             <p class="section-description">Explore our comprehensive coverage of management science disciplines</p>
-            
+
             <div class="areas-grid">
                 <div class="area-card featured">
                     <div class="area-image">
-                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Financial Reporting">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
+                            alt="Financial Reporting">
                         <div class="area-overlay">
                             <i class="fas fa-chart-line"></i>
                         </div>
                     </div>
                     <div class="area-content">
                         <h3>Financial Reporting & Analysis</h3>
-                        <p>Advanced research in financial reporting standards, analysis techniques, and regulatory compliance.</p>
+                        <p>Advanced research in financial reporting standards, analysis techniques, and regulatory
+                            compliance.</p>
                         <div class="area-tags">
                             <span class="tag">IFRS</span>
                             <span class="tag">Financial Analysis</span>
@@ -203,10 +215,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="area-card">
                     <div class="area-image">
-                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="International Accounting">
+                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
+                            alt="International Accounting">
                         <div class="area-overlay">
                             <i class="fas fa-globe"></i>
                         </div>
@@ -220,10 +233,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="area-card">
                     <div class="area-image">
-                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Forensic Accounting">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
+                            alt="Forensic Accounting">
                         <div class="area-overlay">
                             <i class="fas fa-search-dollar"></i>
                         </div>
@@ -237,10 +251,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="area-card">
                     <div class="area-image">
-                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="FinTech">
+                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
+                            alt="FinTech">
                         <div class="area-overlay">
                             <i class="fas fa-robot"></i>
                         </div>
@@ -255,10 +270,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="area-card">
                     <div class="area-image">
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Corporate Governance">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
+                            alt="Corporate Governance">
                         <div class="area-overlay">
                             <i class="fas fa-building"></i>
                         </div>
@@ -272,10 +288,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="area-card">
                     <div class="area-image">
-                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Sustainability">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
+                            alt="Sustainability">
                         <div class="area-overlay">
                             <i class="fas fa-leaf"></i>
                         </div>
@@ -297,7 +314,8 @@
         <div class="container">
             <div class="publications-header">
                 <h2 class="section-title">Latest Publications</h2>
-                <p class="section-description">Discover groundbreaking research from our latest issue - Vol. 2 No. 1 (2025)</p>
+                <p class="section-description">Discover groundbreaking research from our latest issue - Vol. 2 No. 1
+                    (2025)</p>
                 <div class="publication-filters">
                     <button class="filter-btn active" data-filter="all">All Articles</button>
                     <button class="filter-btn" data-filter="finance">Finance</button>
@@ -306,11 +324,12 @@
                     <button class="filter-btn" data-filter="technology">Technology</button>
                 </div>
             </div>
-            
+
             <div class="publications-grid">
                 <article class="publication-card featured" data-category="technology">
                     <div class="publication-image">
-                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="AI in Marketing Research">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+                            alt="AI in Marketing Research">
                         <div class="publication-badge">Featured</div>
                         <div class="publication-category">Technology</div>
                     </div>
@@ -328,15 +347,19 @@
                         <h3>The Impact of Artificial Intelligence on Marketing Strategies in Nigerian Businesses</h3>
                         <div class="authors">
                             <div class="author">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80" alt="Dr. Ahmed Mohammed" class="author-avatar">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80"
+                                    alt="Dr. Ahmed Mohammed" class="author-avatar">
                                 <span>Dr. Ahmed Mohammed</span>
                             </div>
                             <div class="author">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80" alt="Prof. Kemi Johnson" class="author-avatar">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80"
+                                    alt="Prof. Kemi Johnson" class="author-avatar">
                                 <span>Prof. Kemi Johnson</span>
                             </div>
                         </div>
-                        <p class="abstract">This comprehensive study examines how artificial intelligence technologies are revolutionizing marketing strategies across various sectors in Nigeria, with particular focus on customer engagement and predictive analytics...</p>
+                        <p class="abstract">This comprehensive study examines how artificial intelligence technologies
+                            are revolutionizing marketing strategies across various sectors in Nigeria, with particular
+                            focus on customer engagement and predictive analytics...</p>
                         <div class="publication-actions">
                             <a href="#" class="btn btn-outline btn-small">
                                 <i class="fas fa-download"></i>
@@ -349,10 +372,11 @@
                         </div>
                     </div>
                 </article>
-                
+
                 <article class="publication-card" data-category="finance">
                     <div class="publication-image">
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Banking Systems Research">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+                            alt="Banking Systems Research">
                         <div class="publication-category">Finance</div>
                     </div>
                     <div class="publication-content">
@@ -366,14 +390,17 @@
                                 1.8k views
                             </span>
                         </div>
-                        <h3>Integrated Financial Accounting Systems and Operational Performance of Deposit Money Banks</h3>
+                        <h3>Integrated Financial Accounting Systems and Operational Performance of Deposit Money Banks
+                        </h3>
                         <div class="authors">
                             <div class="author">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80" alt="Dr. Emmanuel Okafor" class="author-avatar">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80"
+                                    alt="Dr. Emmanuel Okafor" class="author-avatar">
                                 <span>Dr. Emmanuel Okafor</span>
                             </div>
                         </div>
-                        <p class="abstract">An empirical analysis of how integrated financial accounting systems enhance operational efficiency and performance metrics in Nigerian deposit money banks...</p>
+                        <p class="abstract">An empirical analysis of how integrated financial accounting systems enhance
+                            operational efficiency and performance metrics in Nigerian deposit money banks...</p>
                         <div class="publication-actions">
                             <a href="#" class="btn btn-outline btn-small">
                                 <i class="fas fa-download"></i>
@@ -386,10 +413,11 @@
                         </div>
                     </div>
                 </article>
-                
+
                 <article class="publication-card" data-category="accounting">
                     <div class="publication-image">
-                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Cloud Accounting Research">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+                            alt="Cloud Accounting Research">
                         <div class="publication-category">Accounting</div>
                     </div>
                     <div class="publication-content">
@@ -406,11 +434,13 @@
                         <h3>Cloud Accounting and the Qualitative Characteristics of Financial Reporting</h3>
                         <div class="authors">
                             <div class="author">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80" alt="Dr. Sarah Ibrahim" class="author-avatar">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80"
+                                    alt="Dr. Sarah Ibrahim" class="author-avatar">
                                 <span>Dr. Sarah Ibrahim</span>
                             </div>
                         </div>
-                        <p class="abstract">This research explores how cloud-based accounting technologies influence the qualitative characteristics of financial reporting in modern business environments...</p>
+                        <p class="abstract">This research explores how cloud-based accounting technologies influence the
+                            qualitative characteristics of financial reporting in modern business environments...</p>
                         <div class="publication-actions">
                             <a href="#" class="btn btn-outline btn-small">
                                 <i class="fas fa-download"></i>
@@ -423,10 +453,11 @@
                         </div>
                     </div>
                 </article>
-                
+
                 <article class="publication-card" data-category="management">
                     <div class="publication-image">
-                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="HR Management Research">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+                            alt="HR Management Research">
                         <div class="publication-category">Management</div>
                     </div>
                     <div class="publication-content">
@@ -440,14 +471,18 @@
                                 1.2k views
                             </span>
                         </div>
-                        <h3>Effect of Human Resource Management Practices on Employee Performance in Private Universities</h3>
+                        <h3>Effect of Human Resource Management Practices on Employee Performance in Private
+                            Universities</h3>
                         <div class="authors">
                             <div class="author">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80" alt="Prof. Fatima Adebayo" class="author-avatar">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80"
+                                    alt="Prof. Fatima Adebayo" class="author-avatar">
                                 <span>Prof. Fatima Adebayo</span>
                             </div>
                         </div>
-                        <p class="abstract">A comprehensive study examining the relationship between strategic human resource management practices and employee performance outcomes in Nigerian private universities...</p>
+                        <p class="abstract">A comprehensive study examining the relationship between strategic human
+                            resource management practices and employee performance outcomes in Nigerian private
+                            universities...</p>
                         <div class="publication-actions">
                             <a href="#" class="btn btn-outline btn-small">
                                 <i class="fas fa-download"></i>
@@ -461,9 +496,9 @@
                     </div>
                 </article>
             </div>
-            
+
             <div class="view-all-section">
-                <a href="view-all.html" class="btn btn-secondary btn-large">
+                <a href="view-all.php" class="btn btn-secondary btn-large">
                     <i class="fas fa-archive"></i>
                     View All Publications
                 </a>
@@ -477,8 +512,9 @@
             <div class="submission-content">
                 <div class="submission-info">
                     <h2 class="section-title">Submit Your Research</h2>
-                    <p class="section-description">Join our community of researchers and contribute to advancing management science knowledge</p>
-                    
+                    <p class="section-description">Join our community of researchers and contribute to advancing
+                        management science knowledge</p>
+
                     <div class="submission-process">
                         <div class="process-step">
                             <div class="step-number">1</div>
@@ -510,7 +546,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="submission-guidelines">
                     <div class="guidelines-card">
                         <h3>Submission Requirements</h3>
@@ -538,7 +574,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="pricing-card">
                         <h3>Publication Fees</h3>
                         <div class="pricing-list">
@@ -567,13 +603,13 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="submission-cta">
                 <div class="cta-content">
                     <h3>Ready to Submit Your Research?</h3>
                     <p>Join thousands of researchers who have published with FMS Journal</p>
                     <div class="cta-buttons">
-                        <a href="signup.html" class="btn btn-primary btn-large">
+                        <a href="signup.php" class="btn btn-primary btn-large">
                             <i class="fas fa-user-plus"></i>
                             Create Account
                         </a>
@@ -584,7 +620,8 @@
                     </div>
                 </div>
                 <div class="cta-image">
-                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Research Submission">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+                        alt="Research Submission">
                 </div>
             </div>
         </div>
@@ -603,7 +640,8 @@
                             <p>Faculty of Management Science</p>
                         </div>
                     </div>
-                    <p class="footer-description">Advancing management science research through rigorous peer-reviewed publications and fostering academic excellence in business education.</p>
+                    <p class="footer-description">Advancing management science research through rigorous peer-reviewed
+                        publications and fostering academic excellence in business education.</p>
                     <div class="social-links">
                         <a href="#" class="social-link">
                             <i class="fab fa-facebook"></i>
@@ -622,7 +660,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="footer-links">
                     <div class="link-group">
                         <h3>Journal</h3>
@@ -655,7 +693,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="footer-contact">
                     <h3>Contact Information</h3>
                     <div class="contact-info">
@@ -684,7 +722,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <div class="footer-bottom-content">
                     <p>&copy; 2025 FMS Journal - Faculty of Management Science. All rights reserved.</p>
@@ -695,11 +733,12 @@
                         <a href="#">Site Map</a>
                     </div>
                 </div>
-            
+
             </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
+
 </html>
