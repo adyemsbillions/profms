@@ -1,7 +1,7 @@
 <?php
 session_start();
 require('db.php'); // connect to DB once
-
+include('cal_call.php');
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../login.php");
     exit;
@@ -826,7 +826,7 @@ function e($string)
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="journals">
+                    <a href="payment_status.php" class="nav-link">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path
                                 d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19Z" />
@@ -845,7 +845,7 @@ function e($string)
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="profile">
+                    <a href="update_profile.php" class="nav-link">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path
                                 d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
@@ -854,7 +854,7 @@ function e($string)
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="support">
+                    <a href="help.php" class="nav-link">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path
                                 d="M11,18H13V16H11V18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,6A4,4 0 0,0 8,10H10A2,2 0 0,1 12,8A2,2 0 0,1 14,10C14,12 11,11.75 11,15H13C13,12.75 16,12.5 16,10A4,4 0 0,0 12,6Z" />
@@ -884,29 +884,21 @@ function e($string)
 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-number">12</div>
-                        <div class="stat-label">Total Articles Submitted</div>
+                        <div class="stat-number"><?= $total_articles ?></div>
+                        <div class="stat-label">Total articles</div>
                     </div>
                     <div class="stat-card secondary">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label">Articles Approved</div>
+                        <div class="stat-number"><?= $total_pending ?></div>
+                        <div class="stat-label">Pending/Draft</div>
                     </div>
                     <div class="stat-card accent">
-                        <div class="stat-number">2</div>
-                        <div class="stat-label">Articles Pending</div>
+                        <div class="stat-number"><?= $total_approved ?></div>
+                        <div class="stat-label">Approved/Published</div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number">5</div>
-                        <div class="stat-label">Journals Joined</div>
-                    </div>
-                    <div class="stat-card secondary">
-                        <div class="stat-number">247</div>
-                        <div class="stat-label">Total Citations</div>
-                    </div>
-                    <div class="stat-card accent">
-                        <div class="stat-number">1,523</div>
-                        <div class="stat-label">Article Views</div>
-                    </div>
+                    <!-- <div class="stat-card">
+                        <div class="stat-number"><?= $reviewers ?></div>
+                        <div class="stat-label">Reviewers</div>
+                    </div> -->
                 </div>
 
                 <div style="max-width: 1000px; margin: 0 auto; padding: 1rem;">
@@ -918,10 +910,7 @@ function e($string)
                             echo "<div style='background-color: #ffffff; padding: 0.75rem; border-radius: 6px; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); text-align: center; color: #6b7280; font-size: 0.85rem;'>No recent activity.</div>";
                         } else {
                             echo "<div style='display: none; background-color: #f3f4f6; padding: 0.75rem; border-radius: 6px; border: 1px solid #e5e7eb; font-weight: 600; color: #1f2937; font-size: 0.85rem; display: grid; grid-template-columns: 2fr 2fr 1fr 1fr; gap: 0.75rem; align-items: center;'>
-                                <span>Article Title</span>
-                                <span>Journal</span>
-                                <span>Status</span>
-                                <span>Date</span>
+                              
                             </div>";
                             while ($article = $articlesResult->fetch_assoc()) {
                                 echo "<div style='background-color: #ffffff; padding: 0.75rem; border-radius: 6px; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; gap: 0.5rem;'>";
@@ -1069,132 +1058,8 @@ function e($string)
                 </div>
             </section>
 
-            <section id="journals" class="content-section">
-                <div class="page-header">
-                    <h1 class="page-title">Journal Subscriptions</h1>
-                    <p class="page-subtitle">Discover and subscribe to journals in your field</p>
-                </div>
-                <div class="journal-grid">
-                    <div class="journal-card">
-                        <h3 class="journal-title">AI Medical Journal</h3>
-                        <p class="journal-description">Leading publication in artificial intelligence applications in
-                            healthcare and medical research.</p>
-                        <div class="journal-meta">
-                            <span>Impact Factor: 4.2</span>
-                            <button class="btn btn-secondary btn-small">Subscribed</button>
-                        </div>
-                    </div>
-                    <div class="journal-card">
-                        <h3 class="journal-title">Tech Ethics Review</h3>
-                        <p class="journal-description">Exploring ethical implications of emerging technologies and
-                            digital transformation.</p>
-                        <div class="journal-meta">
-                            <span>Impact Factor: 3.8</span>
-                            <button class="btn btn-primary btn-small">Subscribe</button>
-                        </div>
-                    </div>
-                    <div class="journal-card">
-                        <h3 class="journal-title">Crypto Research</h3>
-                        <p class="journal-description">Cutting-edge research in blockchain technology and cryptocurrency
-                            systems.</p>
-                        <div class="journal-meta">
-                            <span>Impact Factor: 3.5</span>
-                            <button class="btn btn-primary btn-small">Subscribe</button>
-                        </div>
-                    </div>
-                    <div class="journal-card">
-                        <h3 class="journal-title">Data Science Today</h3>
-                        <p class="journal-description">Latest developments in data science, machine learning, and
-                            statistical analysis.</p>
-                        <div class="journal-meta">
-                            <span>Impact Factor: 4.0</span>
-                            <button class="btn btn-secondary btn-small">Subscribed</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <section id="notifications" class="content-section">
-                <div class="page-header">
-                    <h1 class="page-title">Notifications</h1>
-                    <p class="page-subtitle">Stay updated with your publication activities</p>
-                </div>
-                <div class="notification-item unread">
-                    <div class="notification-title">📝 Article Approved: "Machine Learning in Healthcare"</div>
-                    <p>Your article has been approved for publication in AI Medical Journal.</p>
-                    <div class="notification-time">2 hours ago</div>
-                </div>
-                <div class="notification-item unread">
-                    <div class="notification-title">💬 Review Comments Available</div>
-                    <p>Reviewer comments are now available for "Data Privacy in Digital Health".</p>
-                    <div class="notification-time">1 day ago</div>
-                </div>
-                <div class="notification-item">
-                    <div class="notification-title">📚 New Journal Edition Released</div>
-                    <p>Tech Ethics Review has published its December 2024 edition.</p>
-                    <div class="notification-time">3 days ago</div>
-                </div>
-                <div class="notification-item unread">
-                    <div class="notification-title">⏰ Submission Deadline Reminder</div>
-                    <p>Reminder: Crypto Research special issue deadline is approaching (Dec 15, 2024).</p>
-                    <div class="notification-time">5 days ago</div>
-                </div>
-            </section>
 
-            <section id="profile" class="content-section">
-                <div class="page-header">
-                    <h1 class="page-title">My Profile</h1>
-                    <p class="page-subtitle">Manage your account information and settings</p>
-                </div>
-                <div class="form-container">
-                    <form id="profileForm">
-                        <div class="profile-grid">
-                            <div class="profile-avatar-section">
-                                <div class="user-avatar profile-avatar">
-                                    <?php echo substr(e($user['first_name']), 0, 1) . substr(e($user['last_name']), 0, 1); ?>
-                                </div>
-                                <button type="button" class="btn btn-outline">Change Photo</button>
-                            </div>
-                            <div>
-                                <div class="form-group">
-                                    <label class="form-label">Full Name</label>
-                                    <input type="text" class="form-input"
-                                        value="<?php echo e($user['first_name'] . ' ' . $user['last_name']); ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-input" value="john.doe@university.edu">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Institution</label>
-                                    <input type="text" class="form-input" value="Stanford University">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Designation</label>
-                                    <input type="text" class="form-input" value="Research Scholar">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Bio</label>
-                                    <textarea
-                                        class="form-textarea">Dr. John Doe is a research scholar specializing in artificial intelligence and machine learning applications in healthcare.</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">ORCID ID</label>
-                                    <input type="text" class="form-input" placeholder="0000-0000-0000-0000">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">LinkedIn Profile</label>
-                                    <input type="url" class="form-input" placeholder="https://linkedin.com/in/johndoe">
-                                </div>
-                                <div class="btn-group">
-                                    <button type="submit" class="btn btn-primary">Update Profile</button>
-                                    <button type="button" class="btn btn-outline">Change Password</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </section>
 
             <section id="support" class="content-section">
                 <div class="page-header">
