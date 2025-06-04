@@ -157,3 +157,11 @@ Stack trace:
 [04-Jun-2025 14:18:58 Europe/Berlin] PHP Warning:  Undefined array key "admin_name" in C:\xampp\htdocs\profms\public\admin_dash\admin_dash.php on line 1072
 [04-Jun-2025 14:19:01 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\profms\public\admin_dash\recent.php on line 3
 [04-Jun-2025 14:19:01 Europe/Berlin] PHP Warning:  Undefined array key "admin_name" in C:\xampp\htdocs\profms\public\admin_dash\admin_dash.php on line 1072
+[04-Jun-2025 14:25:25 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\profms\public\admin_dash\recent.php on line 3
+[04-Jun-2025 14:25:25 Europe/Berlin] PHP Warning:  Undefined array key "admin_name" in C:\xampp\htdocs\profms\public\admin_dash\admin_dash.php on line 1072
+[04-Jun-2025 14:25:32 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\profms\public\admin_dash\recent.php on line 3
+[04-Jun-2025 14:25:32 Europe/Berlin] PHP Warning:  Undefined array key "admin_name" in C:\xampp\htdocs\profms\public\admin_dash\admin_dash.php on line 1072
+[04-Jun-2025 14:42:52 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\profms\public\admin_dash\recent.php on line 3
+[04-Jun-2025 14:42:52 Europe/Berlin] PHP Warning:  Undefined array key "admin_name" in C:\xampp\htdocs\profms\public\admin_dash\admin_dash.php on line 1072
+[04-Jun-2025 14:45:26 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\profms\public\admin_dash\recent.php on line 3
+[04-Jun-2025 14:45:26 Europe/Berlin] PHP Warning:  Undefined array key "admin_name" in C:\xampp\htdocs\profms\public\admin_dash\admin_dash.php on line 1072

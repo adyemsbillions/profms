@@ -1177,7 +1177,7 @@ if ($conn->connect_error) {
                         <p class="page-subtitle">System-wide statistics and recent activities</p>
                     </div>
                     <div class="header-actions">
-                        <button class="btn btn-outline btn-small">Export Report</button>
+                        <button class="btn btn-outline btn-small"><a href="generate_pdf.php">Export Report</a></button>
                         <button class="btn btn-primary btn-small">System Health</button>
                     </div>
                 </div>

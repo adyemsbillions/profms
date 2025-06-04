@@ -1,0 +1,175 @@
+[2] SERVER -> CLIENT: 220 smtp.gmail.com ESMTP 4fb4d7f45d1cf-606add9c4afsm2434095a12.4 - gsmtp
+
+[1] CLIENT -> SERVER: EHLO localhost
+
+[2] SERVER -> CLIENT: 250-smtp.gmail.com at your service, [102.91.93.121]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+[1] CLIENT -> SERVER: AUTH LOGIN
+
+[2] SERVER -> CLIENT: 334 VXNlcm5hbWU6
+
+[1] CLIENT -> SERVER: [credentials hidden]
+[2] SERVER -> CLIENT: 334 UGFzc3dvcmQ6
+
+[1] CLIENT -> SERVER: [credentials hidden]
+[2] SERVER -> CLIENT: 235 2.7.0 Accepted
+
+[1] CLIENT -> SERVER: MAIL FROM:<adyemsgodlove@gmail.com>
+
+[2] SERVER -> CLIENT: 250 2.1.0 OK 4fb4d7f45d1cf-606add9c4afsm2434095a12.4 - gsmtp
+
+[1] CLIENT -> SERVER: RCPT TO:<silmadedra@gufum.com>
+
+[2] SERVER -> CLIENT: 250 2.1.5 OK 4fb4d7f45d1cf-606add9c4afsm2434095a12.4 - gsmtp
+
+[1] CLIENT -> SERVER: DATA
+
+[2] SERVER -> CLIENT: 354 Go ahead 4fb4d7f45d1cf-606add9c4afsm2434095a12.4 - gsmtp
+
+[1] CLIENT -> SERVER: Date: Wed, 4 Jun 2025 15:39:48 +0200
+
+[1] CLIENT -> SERVER: To: Oprah Howard <silmadedra@gufum.com>
+
+[1] CLIENT -> SERVER: From: FMS Journal <adyemsgodlove@gmail.com>
+
+[1] CLIENT -> SERVER: Subject: Verify Your Email Address - FMS Journal
+
+[1] CLIENT -> SERVER: Message-ID: <heb64L5xgtEoc2Jp03rfZ11CiYEecTFMUaEizp2QCU@localhost>
+
+[1] CLIENT -> SERVER: X-Mailer: PHPMailer 6.10.0 (https://github.com/PHPMailer/PHPMailer)
+
+[1] CLIENT -> SERVER: MIME-Version: 1.0
+
+[1] CLIENT -> SERVER: Content-Type: multipart/alternative;
+
+[1] CLIENT -> SERVER:  boundary="b1=_heb64L5xgtEoc2Jp03rfZ11CiYEecTFMUaEizp2QCU"
+
+[1] CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+[1] CLIENT -> SERVER: 
+
+[1] CLIENT -> SERVER: --b1=_heb64L5xgtEoc2Jp03rfZ11CiYEecTFMUaEizp2QCU
+
+[1] CLIENT -> SERVER: Content-Type: text/plain; charset=us-ascii
+
+[1] CLIENT -> SERVER: 
+
+[1] CLIENT -> SERVER: Welcome to FMS Journal! Please verify your email by visiting this link: http://localhost/profms/public/verify_email.php?token=c041f32c3ee9b235162a110edb4b1a5bd129e5d411317c78beafc963ad673c8e
+
+[1] CLIENT -> SERVER: 
+
+[1] CLIENT -> SERVER: --b1=_heb64L5xgtEoc2Jp03rfZ11CiYEecTFMUaEizp2QCU
+
+[1] CLIENT -> SERVER: Content-Type: text/html; charset=iso-8859-1
+
+[1] CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+[1] CLIENT -> SERVER: 
+
+[1] CLIENT -> SERVER: 
+
+[1] CLIENT -> SERVER:                 <!DOCTYPE html>
+
+[1] CLIENT -> SERVER:                 <html lang='en'>
+
+[1] CLIENT -> SERVER:                 <head>
+
+[1] CLIENT -> SERVER:                     <meta charset='UTF-8'>
+
+[1] CLIENT -> SERVER:                     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+[1] CLIENT -> SERVER:                     <title>Email Verification</title>
+
+[1] CLIENT -> SERVER:                 </head>
+
+[1] CLIENT -> SERVER:                 <body style='margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;'>
+
+[1] CLIENT -> SERVER:                     <table role='presentation' width='100%' cellspacing='0' cellpadding='0' style='max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);'>
+
+[1] CLIENT -> SERVER:                         <tr>
+
+[1] CLIENT -> SERVER:                             <td style='background-color: #1b5e20; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;'>
+
+[1] CLIENT -> SERVER:                                 <h1 style='color: #ffffff; margin: 0; font-size: 24px;'>FMS Journal</h1>
+
+[1] CLIENT -> SERVER:                             </td>
+
+[1] CLIENT -> SERVER:                         </tr>
+
+[1] CLIENT -> SERVER:                         <tr>
+
+[1] CLIENT -> SERVER:                             <td style='padding: 30px; text-align: center;'>
+
+[1] CLIENT -> SERVER:                                 <h2 style='color: #1b5e20; font-size: 20px; margin-bottom: 20px;'>Verify Your Email Address</h2>
+
+[1] CLIENT -> SERVER:                                 <p style='color: #333; font-size: 16px; line-height: 1.5; margin-bottom: 20px;'>
+
+[1] CLIENT -> SERVER:                                     Dear Oprah Howard,<br>
+
+[1] CLIENT -> SERVER:                                     Thank you for registering with FMS Journal. Please click the link below to verify your email address:
+
+[1] CLIENT -> SERVER:                                 </p>
+
+[1] CLIENT -> SERVER:                                 <a href='http://localhost/profms/public/verify_email.php?token=c041f32c3ee9b235162a110edb4b1a5bd129e5d411317c78beafc963ad673c8e' style='display: inline-block; padding: 12px 24px; background-color: #1976d2; color: #ffffff; text-decoration: none; font-size: 16px; border-radius: 5px;'>Verify Email</a>
+
+[1] CLIENT -> SERVER:                                 <p style='color: #666; font-size: 14px; line-height: 1.5; margin-top: 20px;'>
+
+[1] CLIENT -> SERVER:                                     If you did not register, please ignore this email.
+
+[1] CLIENT -> SERVER:                                 </p>
+
+[1] CLIENT -> SERVER:                                 <p style='color: #666; font-size: 14px; line-height: 1.5;'>
+
+[1] CLIENT -> SERVER:                                     Best regards,<br>FMS Journal Team
+
+[1] CLIENT -> SERVER:                                 </p>
+
+[1] CLIENT -> SERVER:                             </td>
+
+[1] CLIENT -> SERVER:                         </tr>
+
+[1] CLIENT -> SERVER:                         <tr>
+
+[1] CLIENT -> SERVER:                             <td style='background-color: #f9f9f9; padding: 20px; text-align: center; border-radius: 0 0 8px 8px;'>
+
+[1] CLIENT -> SERVER:                                 <p style='color: #666; font-size: 12px; margin: 0;'>
+
+[1] CLIENT -> SERVER:                                     © 2025 FMS Journal. All rights reserved.
+
+[1] CLIENT -> SERVER:                                 </p>
+
+[1] CLIENT -> SERVER:                             </td>
+
+[1] CLIENT -> SERVER:                         </tr>
+
+[1] CLIENT -> SERVER:                     </table>
+
+[1] CLIENT -> SERVER:                 </body>
+
+[1] CLIENT -> SERVER:                 </html>
+
+[1] CLIENT -> SERVER:             
+
+[1] CLIENT -> SERVER: 
+
+[1] CLIENT -> SERVER: 
+
+[1] CLIENT -> SERVER: --b1=_heb64L5xgtEoc2Jp03rfZ11CiYEecTFMUaEizp2QCU--
+
+[1] CLIENT -> SERVER: 
+
+[1] CLIENT -> SERVER: .
+
+[2] SERVER -> CLIENT: 250 2.0.0 OK  1749044391 4fb4d7f45d1cf-606add9c4afsm2434095a12.4 - gsmtp
+
+[1] CLIENT -> SERVER: QUIT
+
+[2] SERVER -> CLIENT: 221 2.0.0 closing connection 4fb4d7f45d1cf-606add9c4afsm2434095a12.4 - gsmtp
+
