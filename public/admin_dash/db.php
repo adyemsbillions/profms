@@ -1,22 +1,22 @@
 <?php
-// db.php - DO NOT call session_start() here
+// session_start();
 
-$host = 'localhost';
-$dbname = 'fms';
-$user = 'root';
-$pass = '';
-$charset = 'utf8mb4';
-
-$dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
-
-$options = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES => false,
-];
-
-try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (PDOException $e) {
-    exit('Database connection failed: ' . $e->getMessage());
+if (!isset($_SESSION['admin_id'])) {
+    die("User not logged in.");
 }
+
+// Temporary DB connection for testing if db.php is missing or not working
+$host = "localhost";
+$db   = "fms";
+$user = "root";
+$pass = "";
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$admin_id = intval($_SESSION['user_id']);
+
+// Then the rest of your code...

@@ -10,7 +10,7 @@ if (!isset($_SESSION['admin_id'])) {
 ?>
 <?php
 // DB connection setup (adjust as needed)
-include('../userdash/db.php');
+include('db.php');
 
 // Query the total users count
 $total_users = 0;

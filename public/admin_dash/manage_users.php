@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $is_paid = isset($_POST['is_paid']) && $_POST['is_paid'] === 'on' ? 1 : 0;
             $orcid = trim($_POST['orcid'] ?? '') ?: NULL;
             $linkedin = trim($_POST['linkedin'] ?? '') ?: NULL;
+            $email_verified = isset($_POST['email_verified']) && $_POST['email_verified'] === 'on' ? 1 : 0;
 
             // Validation
             if (empty($first_name) || empty($last_name) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || empty($country) || empty($institution) || empty($position)) {
@@ -59,11 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             }
             $stmt->close();
 
-            $stmt = $conn->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, phone = ?, country = ?, institution = ?, position = ?, research_interests = ?, wants_newsletter = ?, is_reviewer = ?, is_approved = ?, is_paid = ?, orcid = ?, linkedin = ? WHERE id = ?");
+            $stmt = $conn->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, phone = ?, country = ?, institution = ?, position = ?, research_interests = ?, wants_newsletter = ?, is_reviewer = ?, is_approved = ?, is_paid = ?, orcid = ?, linkedin = ?, email_verified = ? WHERE id = ?");
             if (!$stmt) {
                 throw new Exception("Prepare failed: " . $conn->error);
             }
-            $stmt->bind_param("ssssssssiiiiisi", $first_name, $last_name, $email, $phone, $country, $institution, $position, $research_interests, $wants_newsletter, $is_reviewer, $is_approved, $is_paid, $orcid, $linkedin, $id);
+            $stmt->bind_param("ssssssssiiiiisii", $first_name, $last_name, $email, $phone, $country, $institution, $position, $research_interests, $wants_newsletter, $is_reviewer, $is_approved, $is_paid, $orcid, $linkedin, $email_verified, $id);
             if (!$stmt->execute()) {
                 throw new Exception("Execute failed: " . $stmt->error);
             }
@@ -95,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
 // Fetch all users
 try {
-    $stmt = $conn->prepare("SELECT id, first_name, last_name, email, phone, country, institution, position, research_interests, wants_newsletter, is_reviewer, is_approved, is_paid, orcid, linkedin, registration_date, last_login FROM users ORDER BY registration_date DESC");
+    $stmt = $conn->prepare("SELECT id, first_name, last_name, email, phone, country, institution, position, research_interests, wants_newsletter, is_reviewer, is_approved, is_paid, orcid, linkedin, registration_date, last_login, email_verified FROM users ORDER BY registration_date DESC");
     if (!$stmt) {
         throw new Exception("Prepare failed: " . $conn->error);
     }
@@ -118,124 +119,124 @@ $conn->close();
     <title>Manage Users - Journal Platform</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #1e3a8a;
-            --secondary-color: #059669;
-            --danger-color: #dc2626;
-            --bg-light: #f8fafc;
-        }
+    :root {
+        --primary-color: #1e3a8a;
+        --secondary-color: #059669;
+        --danger-color: #dc2626;
+        --bg-light: #f8fafc;
+    }
 
-        body {
-            background-color: var(--bg-light);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            padding-top: 20px;
-        }
+    body {
+        background-color: var(--bg-light);
+        font-family: 'Segoe UI', Arial, sans-serif;
+        padding-top: 20px;
+    }
 
+    .user-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        background: white;
+    }
+
+    .user-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        padding: 1rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .user-info {
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+    }
+
+    .user-info strong {
+        color: var(--primary-color);
+    }
+
+    .btn-edit,
+    .btn-delete {
+        border-radius: 8px;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+    }
+
+    .btn-edit {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+
+    .btn-delete {
+        background-color: var(--danger-color);
+        border-color: var(--danger-color);
+    }
+
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+        background: var(--primary-color);
+        color: white;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: var(--primary-color);
+    }
+
+    .form-control,
+    .form-check-input {
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(30, 58, 138, 0.25);
+    }
+
+    .alert {
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+
+    .btn-primary:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    @media (max-width: 576px) {
         .user-card {
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: none;
-            border-radius: 12px;
-            overflow: hidden;
-            background: white;
-        }
-
-        .user-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header {
-            background: var(--primary-color);
-            color: white;
-            font-weight: 600;
-            padding: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .card-body {
-            padding: 1.5rem;
-        }
-
-        .user-info {
-            margin-bottom: 0.75rem;
-            font-size: 0.95rem;
-        }
-
-        .user-info strong {
-            color: var(--primary-color);
+            padding: 1rem;
         }
 
         .btn-edit,
         .btn-delete {
-            border-radius: 8px;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
+            width: 100%;
+            margin-bottom: 0.5rem;
         }
-
-        .btn-edit {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-        }
-
-        .btn-delete {
-            background-color: var(--danger-color);
-            border-color: var(--danger-color);
-        }
-
-        .modal-content {
-            border-radius: 12px;
-            border: none;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-header {
-            background: var(--primary-color);
-            color: white;
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: var(--primary-color);
-        }
-
-        .form-control,
-        .form-check-input {
-            border-radius: 8px;
-            border: 1px solid #d1d5db;
-            transition: border-color 0.2s;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(30, 58, 138, 0.25);
-        }
-
-        .alert {
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .btn-primary:disabled {
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
-        @media (max-width: 576px) {
-            .user-card {
-                margin-bottom: 1.5rem;
-            }
-
-            .card-body {
-                padding: 1rem;
-            }
-
-            .btn-edit,
-            .btn-delete {
-                width: 100%;
-                margin-bottom: 0.5rem;
-            }
-        }
+    }
     </style>
 </head>
 
@@ -246,33 +247,40 @@ $conn->close();
         <div id="alertContainer"></div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php foreach ($users as $user): ?>
-                <div class="col">
-                    <div class="card user-card">
-                        <div class="card-header">
-                            <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
-                        </div>
-                        <div class="card-body">
-                            <p class="user-info"><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-                            <p class="user-info"><strong>Institution:</strong>
-                                <?php echo htmlspecialchars($user['institution']); ?></p>
-                            <p class="user-info"><strong>Position:</strong>
-                                <?php echo htmlspecialchars($user['position']); ?></p>
-                            <p class="user-info"><strong>Country:</strong> <?php echo htmlspecialchars($user['country']); ?>
-                            </p>
-                            <p class="user-info"><strong>Reviewer:</strong>
-                                <?php echo $user['is_reviewer'] ? 'Yes' : 'No'; ?></p>
-                            <p class="user-info"><strong>Approved:</strong>
-                                <?php echo $user['is_approved'] ? 'Yes' : 'No'; ?></p>
-                            <p class="user-info"><strong>Paid:</strong> <?php echo $user['is_paid'] ? 'Yes' : 'No'; ?></p>
-                            <div class="d-flex flex-column flex-sm-row gap-2">
-                                <button class="btn btn-edit btn-sm"
-                                    onclick="openEditModal(<?php echo htmlspecialchars(json_encode($user, JSON_HEX_APOS | JSON_HEX_QUOT)); ?>)">Edit</button>
-                                <button class="btn btn-delete btn-sm"
-                                    onclick="deleteUser(<?php echo $user['id']; ?>)">Delete</button>
-                            </div>
+            <div class="col">
+                <div class="card user-card">
+                    <div class="card-header">
+                        <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
+                    </div>
+                    <div class="card-body">
+                        <p class="user-info">
+                            <strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?>
+                            <?php if ($user['email_verified']): ?>
+                            <span class="badge bg-success ms-2">Verified</span>
+                            <?php else: ?>
+                            <span class="badge bg-warning ms-2">Not Verified</span>
+                            <?php endif; ?>
+                        </p>
+                        <p class="user-info"><strong>Institution:</strong>
+                            <?php echo htmlspecialchars($user['institution']); ?></p>
+                        <p class="user-info"><strong>Position:</strong>
+                            <?php echo htmlspecialchars($user['position']); ?></p>
+                        <p class="user-info"><strong>Country:</strong> <?php echo htmlspecialchars($user['country']); ?>
+                        </p>
+                        <p class="user-info"><strong>Reviewer:</strong>
+                            <?php echo $user['is_reviewer'] ? 'Yes' : 'No'; ?></p>
+                        <p class="user-info"><strong>Approved:</strong>
+                            <?php echo $user['is_approved'] ? 'Yes' : 'No'; ?></p>
+                        <p class="user-info"><strong>Paid:</strong> <?php echo $user['is_paid'] ? 'Yes' : 'No'; ?></p>
+                        <div class="d-flex flex-column flex-sm-row gap-2">
+                            <button class="btn btn-edit btn-sm"
+                                onclick="openEditModal(<?php echo htmlspecialchars(json_encode($user, JSON_HEX_APOS | JSON_HEX_QUOT)); ?>)">Edit</button>
+                            <button class="btn btn-delete btn-sm"
+                                onclick="deleteUser(<?php echo $user['id']; ?>)">Delete</button>
                         </div>
                     </div>
                 </div>
+            </div>
             <?php endforeach; ?>
         </div>
     </div>
@@ -360,6 +368,13 @@ $conn->close();
                                     <label class="form-check-label" for="editIsPaid">Is Paid</label>
                                 </div>
                             </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="editEmailVerified"
+                                        name="email_verified">
+                                    <label class="form-check-label" for="editEmailVerified">Email Verified</label>
+                                </div>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary" id="saveChangesBtn">Save Changes</button>
                     </form>
@@ -370,101 +385,102 @@ $conn->close();
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function showAlert(message, type = 'danger') {
-            const alertContainer = document.getElementById('alertContainer');
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type} alert-dismissible fade show`;
-            alert.innerHTML = `
+    function showAlert(message, type = 'danger') {
+        const alertContainer = document.getElementById('alertContainer');
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type} alert-dismissible fade show`;
+        alert.innerHTML = `
                 ${message}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             `;
-            alertContainer.appendChild(alert);
-            setTimeout(() => alert.remove(), 5000);
+        alertContainer.appendChild(alert);
+        setTimeout(() => alert.remove(), 5000);
+    }
+
+    function openEditModal(user) {
+        try {
+            document.getElementById('editId').value = user.id || '';
+            document.getElementById('editFirstName').value = user.first_name || '';
+            document.getElementById('editLastName').value = user.last_name || '';
+            document.getElementById('editEmail').value = user.email || '';
+            document.getElementById('editPhone').value = user.phone || '';
+            document.getElementById('editCountry').value = user.country || '';
+            document.getElementById('editInstitution').value = user.institution || '';
+            document.getElementById('editPosition').value = user.position || '';
+            document.getElementById('editResearchInterests').value = user.research_interests || '';
+            document.getElementById('editOrcid').value = user.orcid || '';
+            document.getElementById('editLinkedin').value = user.linkedin || '';
+            document.getElementById('editWantsNewsletter').checked = !!user.wants_newsletter;
+            document.getElementById('editIsReviewer').checked = !!user.is_reviewer;
+            document.getElementById('editIsApproved').checked = !!user.is_approved;
+            document.getElementById('editIsPaid').checked = !!user.is_paid;
+            document.getElementById('editEmailVerified').checked = !!user.email_verified;
+
+            const modal = new bootstrap.Modal(document.getElementById('editModal'));
+            modal.show();
+        } catch (e) {
+            console.error('Error opening edit modal:', e);
+            showAlert('Failed to open edit modal.', 'danger');
         }
+    }
 
-        function openEditModal(user) {
-            try {
-                document.getElementById('editId').value = user.id || '';
-                document.getElementById('editFirstName').value = user.first_name || '';
-                document.getElementById('editLastName').value = user.last_name || '';
-                document.getElementById('editEmail').value = user.email || '';
-                document.getElementById('editPhone').value = user.phone || '';
-                document.getElementById('editCountry').value = user.country || '';
-                document.getElementById('editInstitution').value = user.institution || '';
-                document.getElementById('editPosition').value = user.position || '';
-                document.getElementById('editResearchInterests').value = user.research_interests || '';
-                document.getElementById('editOrcid').value = user.orcid || '';
-                document.getElementById('editLinkedin').value = user.linkedin || '';
-                document.getElementById('editWantsNewsletter').checked = !!user.wants_newsletter;
-                document.getElementById('editIsReviewer').checked = !!user.is_reviewer;
-                document.getElementById('editIsApproved').checked = !!user.is_approved;
-                document.getElementById('editIsPaid').checked = !!user.is_paid;
+    document.getElementById('editForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const saveBtn = document.getElementById('saveChangesBtn');
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Saving...';
 
-                const modal = new bootstrap.Modal(document.getElementById('editModal'));
-                modal.show();
-            } catch (e) {
-                console.error('Error opening edit modal:', e);
-                showAlert('Failed to open edit modal.', 'danger');
-            }
-        }
+        const formData = new FormData(this);
+        formData.append('action', 'edit');
 
-        document.getElementById('editForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const saveBtn = document.getElementById('saveChangesBtn');
-            saveBtn.disabled = true;
-            saveBtn.textContent = 'Saving...';
+        fetch('', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    showAlert(data.success, 'success');
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    showAlert(data.error || 'Failed to update user.', 'danger');
+                }
+            })
+            .catch(error => {
+                console.error('Edit error:', error);
+                showAlert('An error occurred while updating the user.', 'danger');
+            })
+            .finally(() => {
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save Changes';
+            });
+    });
 
-            const formData = new FormData(this);
-            formData.append('action', 'edit');
+    function deleteUser(id) {
+        if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) return;
 
-            fetch('', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        showAlert(data.success, 'success');
-                        setTimeout(() => location.reload(), 1000);
-                    } else {
-                        showAlert(data.error || 'Failed to update user.', 'danger');
-                    }
-                })
-                .catch(error => {
-                    console.error('Edit error:', error);
-                    showAlert('An error occurred while updating the user.', 'danger');
-                })
-                .finally(() => {
-                    saveBtn.disabled = false;
-                    saveBtn.textContent = 'Save Changes';
-                });
-        });
+        const formData = new FormData();
+        formData.append('action', 'delete');
+        formData.append('id', id);
 
-        function deleteUser(id) {
-            if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) return;
-
-            const formData = new FormData();
-            formData.append('action', 'delete');
-            formData.append('id', id);
-
-            fetch('', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        showAlert(data.success, 'success');
-                        setTimeout(() => location.reload(), 1000);
-                    } else {
-                        showAlert(data.error || 'Failed to delete user.', 'danger');
-                    }
-                })
-                .catch(() => showAlert('An error occurred while deleting the user.', 'danger'));
-        }
+        fetch('', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showAlert(data.success, 'success');
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    showAlert(data.error || 'Failed to delete user.', 'danger');
+                }
+            })
+            .catch(() => showAlert('An error occurred while deleting the user.', 'danger'));
+    }
     </script>
 </body>
 

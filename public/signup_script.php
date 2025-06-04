@@ -6,10 +6,10 @@ require 'vendor/autoload.php'; // Include Composer's autoloader for PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Enable error reporting for debugging
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Disable error reporting for production
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
 
 // Function to log security events
 function logSecurityEvent($message)
@@ -96,8 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Send verification email using PHPMailer
         $mail = new PHPMailer(true);
         try {
-            // Enable verbose debugging
-            $mail->SMTPDebug = 2;
+            // Enable logging without verbose debugging
+            $mail->SMTPDebug = 0; // No debug output in production
             $mail->Debugoutput = function ($str, $level) {
                 file_put_contents('phpmailer.log', "[$level] $str\n", FILE_APPEND);
             };
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Content
             $verificationLink = "http://localhost/profms/public/verify_email.php?token=$verificationToken";
-            $mail->isHTML(true); // Fixed the typo here
+            $mail->isHTML(true);
             $mail->Subject = 'Verify Your Email Address - FMS Journal';
             $mail->Body = "
                 <!DOCTYPE html>
@@ -163,18 +163,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $mail->send();
             logSecurityEvent("Verification email sent to $email");
-            // For debugging, capture debug output
-            // Comment out in production
-            $debugOutput = file_get_contents('phpmailer.log');
-            echo "Email sent successfully.<br>Debug Output:<br><pre>$debugOutput</pre>";
         } catch (Exception $e) {
-            $debugOutput = file_get_contents('phpmailer.log');
             logSecurityEvent("Email sending failed for $email: " . $e->getMessage());
-            file_put_contents('phpmailer_error.log', "[" . date('Y-m-d H:i:s') . "] Email sending failed for $email: " . $e->getMessage() . "\nDebug: $debugOutput\n", FILE_APPEND);
-            echo "Email sending failed: " . $e->getMessage() . "<br>Debug Output:<br><pre>$debugOutput</pre>";
-            $_SESSION['signup_errors'] = ["Failed to send verification email: " . $e->getMessage()];
-            // Comment out redirect for debugging
-            // header("Location: signup_form.php");
+            file_put_contents('phpmailer_error.log', "[" . date('Y-m-d H:i:s') . "] Email sending failed for $email: " . $e->getMessage() . "\n", FILE_APPEND);
+            $_SESSION['signup_errors'] = ["Failed to send verification email. Please try again."];
+            header("Location: signup_form.php");
             exit;
         } finally {
             $mail->clearAddresses();

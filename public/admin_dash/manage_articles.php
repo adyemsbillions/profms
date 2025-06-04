@@ -26,14 +26,9 @@ if ($conn->connect_error) {
 
 // Handle file streaming for documents
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['file'])) {
-    // Define the base path to the uploads folder
     $base_path = realpath(__DIR__ . '/../../public/uploads');
     $file_path = urldecode($_GET['file']);
-
-    // Remove any 'uploads/' prefix from file_path to avoid duplication
     $relative_path = preg_replace('#^uploads[/\\\\]#i', '', $file_path);
-
-    // Construct the absolute path
     $absolute_path = realpath($base_path . '/' . $relative_path);
 
     error_log("File path requested: $file_path");
@@ -41,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['file'])) {
     error_log("Base path: $base_path");
     error_log("Absolute path: $absolute_path");
 
-    // Check if the file exists and is within the uploads directory
     if ($absolute_path && file_exists($absolute_path) && strpos($absolute_path, $base_path) === 0) {
         $mime_type = mime_content_type($absolute_path);
         header('Content-Type: ' . $mime_type);
@@ -93,11 +87,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 throw new Exception('Invalid published date format.');
             }
 
-            $stmt = $conn->prepare("UPDATE articles SET title = ?, abstract = ?, keywords = ?, status = ?, doi = ?, published_date = ?, file_path = ?, journal = ? WHERE id = ?");
+            // Handle publication image upload
+            $image_path = null;
+            if (isset($_FILES['image_path']) && $_FILES['image_path']['error'] === UPLOAD_ERR_OK) {
+                $image = $_FILES['image_path'];
+                $allowed_ext = ['jpg', 'jpeg', 'png'];
+                $ext = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
+                if (!in_array($ext, $allowed_ext)) {
+                    throw new Exception('Invalid image file type. Only JPG, JPEG, PNG allowed.');
+                }
+                if ($image['size'] > 5 * 1024 * 1024) { // 5MB limit
+                    throw new Exception('Image file size exceeds 5MB.');
+                }
+
+                $upload_dir = __DIR__ . '/../../public/uploads/images/';
+                if (!is_dir($upload_dir)) {
+                    mkdir($upload_dir, 0755, true);
+                }
+
+                $new_filename = uniqid('image_', true) . '.' . $ext;
+                $destination = $upload_dir . $new_filename;
+                if (!move_uploaded_file($image['tmp_name'], $destination)) {
+                    throw new Exception('Failed to upload image.');
+                }
+                $image_path = 'uploads/images/' . $new_filename;
+
+                // Delete old image if it exists
+                $stmt = $conn->prepare("SELECT image_path FROM articles WHERE id = ?");
+                $stmt->bind_param("i", $id);
+                $stmt->execute();
+                $result = $stmt->get_result()->fetch_assoc();
+                if ($result['image_path'] && file_exists(__DIR__ . '/../../public/' . $result['image_path'])) {
+                    unlink(__DIR__ . '/../../public/' . $result['image_path']);
+                }
+                $stmt->close();
+            }
+
+            // Fetch existing image path if no new image is uploaded
+            if (!$image_path) {
+                $stmt = $conn->prepare("SELECT image_path FROM articles WHERE id = ?");
+                $stmt->bind_param("i", $id);
+                $stmt->execute();
+                $result = $stmt->get_result()->fetch_assoc();
+                $image_path = $result['image_path'] ?? null;
+                $stmt->close();
+            }
+
+            // Update article
+            $stmt = $conn->prepare("UPDATE articles SET title = ?, abstract = ?, keywords = ?, status = ?, doi = ?, published_date = ?, file_path = ?, journal = ?, image_path = ? WHERE id = ?");
             if (!$stmt) {
                 throw new Exception("Prepare failed: " . $conn->error);
             }
-            $stmt->bind_param("sssssssss", $title, $abstract, $keywords, $status, $doi, $published_date, $file_path, $journal, $id);
+            $stmt->bind_param("sssssssssi", $title, $abstract, $keywords, $status, $doi, $published_date, $file_path, $journal, $image_path, $id);
             if (!$stmt->execute()) {
                 throw new Exception("Execute failed: " . $stmt->error);
             }
@@ -105,6 +146,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             echo json_encode(['success' => 'Article updated successfully']);
         } elseif ($_POST['action'] === 'delete') {
             $id = intval($_POST['id']);
+            // Delete image if it exists
+            $stmt = $conn->prepare("SELECT image_path FROM articles WHERE id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result()->fetch_assoc();
+            if ($result['image_path'] && file_exists(__DIR__ . '/../../public/' . $result['image_path'])) {
+                unlink(__DIR__ . '/../../public/' . $result['image_path']);
+            }
+            $stmt->close();
+
             $stmt = $conn->prepare("DELETE FROM articles WHERE id = ?");
             if (!$stmt) {
                 throw new Exception("Prepare failed: " . $conn->error);
@@ -131,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 try {
     $stmt = $conn->prepare("
         SELECT a.id, a.title, a.abstract, a.keywords, a.submission_date, a.last_update, a.status, a.doi, 
-               a.published_date, a.file_path, a.journal, a.submitted_by, 
+               a.published_date, a.file_path, a.journal, a.submitted_by, a.image_path,
                CONCAT(u.first_name, ' ', u.last_name) AS submitter_name
         FROM articles a
         LEFT JOIN users u ON a.submitted_by = u.id
@@ -190,6 +241,30 @@ $conn->close();
         color: white;
         font-weight: 600;
         padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .article-image {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 2px solid white;
+    }
+
+    .article-image-placeholder {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        background-color: #e5e7eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6b7280;
+        font-size: 0.9rem;
+        border: 2px solid white;
     }
 
     .card-body {
@@ -263,6 +338,15 @@ $conn->close();
         box-shadow: 0 0 0 0.2rem rgba(30, 58, 138, 0.25);
     }
 
+    .image-preview {
+        max-width: 100px;
+        max-height: 100px;
+        border-radius: 8px;
+        object-fit: cover;
+        margin-top: 0.5rem;
+        border: 1px solid #d1d5db;
+    }
+
     .alert {
         border-radius: 8px;
         margin-bottom: 1rem;
@@ -303,6 +387,12 @@ $conn->close();
         .document-viewer {
             height: 300px;
         }
+
+        .article-image,
+        .article-image-placeholder {
+            width: 40px;
+            height: 40px;
+        }
     }
     </style>
 </head>
@@ -317,7 +407,13 @@ $conn->close();
             <div class="col">
                 <div class="card article-card">
                     <div class="card-header">
-                        <?php echo htmlspecialchars($article['title']); ?>
+                        <?php if ($article['image_path'] && file_exists(__DIR__ . '/../../public/' . $article['image_path'])): ?>
+                        <img src="../../public/<?= htmlspecialchars($article['image_path']) ?>" alt="Publication Image"
+                            class="article-image">
+                        <?php else: ?>
+                        <div class="article-image-placeholder">No Image</div>
+                        <?php endif; ?>
+                        <span><?php echo htmlspecialchars($article['title']); ?></span>
                     </div>
                     <div class="card-body">
                         <p class="article-info"><strong>Journal:</strong>
@@ -356,7 +452,7 @@ $conn->close();
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editForm">
+                    <form id="editForm" enctype="multipart/form-data">
                         <input type="hidden" id="editId" name="id">
                         <div class="mb-3">
                             <label for="editTitle" class="form-label">Title</label>
@@ -395,6 +491,13 @@ $conn->close();
                         <div class="mb-3">
                             <label for="editFilePath" class="form-label">File Path</label>
                             <input type="text" class="form-control" id="editFilePath" name="file_path" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editImagePath" class="form-label">Publication Image</label>
+                            <input type="file" class="form-control" id="editImagePath" name="image_path"
+                                accept=".jpg,.jpeg,.png">
+                            <small class="form-text text-muted">JPG, JPEG, PNG (Max 5MB)</small>
+                            <div id="imagePreview" class="mt-2"></div>
                         </div>
                         <div class="mb-3">
                             <label for="editJournal" class="form-label">Journal</label>
@@ -455,6 +558,15 @@ $conn->close();
             document.getElementById('editFilePath').value = article.file_path || '';
             document.getElementById('editJournal').value = article.journal ||
                 'Sahel Analyst: Journal of Management Sciences';
+
+            // Display current image
+            const preview = document.getElementById('imagePreview');
+            if (article.image_path && article.image_path !== '') {
+                preview.innerHTML =
+                    `<img src="../../public/${article.image_path}" alt="Publication Image" class="image-preview">`;
+            } else {
+                preview.innerHTML = '<p class="text-muted">No image uploaded</p>';
+            }
 
             const modal = new bootstrap.Modal(document.getElementById('editModal'));
             modal.show();
@@ -556,4 +668,3 @@ $conn->close();
 </body>
 
 </html>
-?>
