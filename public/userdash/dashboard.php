@@ -818,7 +818,7 @@ function e($string)
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="submit">
+                    <a href="new_article.php" class="nav-link">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
                         </svg>
@@ -990,71 +990,6 @@ function e($string)
                         $allArticlesResult->close();
                         ?>
                     </div>
-                </div>
-            </section>
-
-            <section id="submit" class="content-section">
-                <div class="page-header">
-                    <h1 class="page-title">Submit New Article</h1>
-                    <p class="page-subtitle">Submit your manuscript for publication</p>
-                </div>
-
-                <div class="form-container">
-                    <form id="submitForm" method="POST" enctype="multipart/form-data" action="submit_article.php">
-                        <div class="form-group">
-                            <label class="form-label" for="title">Article Title *</label>
-                            <input type="text" id="title" name="title" class="form-input"
-                                placeholder="Enter your article title" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="abstract">Abstract *</label>
-                            <textarea id="abstract" name="abstract" class="form-textarea"
-                                placeholder="Provide a brief abstract of your article" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="journal">Select Journal *</label>
-                            <select id="journal" name="journal" class="form-select" required>
-                                <option value="">Choose a journal</option>
-                                <option value="Sahel Analyst: Journal of Management Sciences">Sahel Analyst: Journal of
-                                    Management Sciences</option>
-                                <option value="Journal of Resources & Economic Development (JRED)">Journal of Resources
-                                    & Economic Development (JRED)</option>
-                                <option value="African Journal of Management">African Journal of Management</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="manuscript">Upload Manuscript *</label>
-                            <input type="file" id="manuscript" name="manuscript" accept=".pdf,.doc,.docx" required>
-                            <p style="font-size: 0.8rem; color: var(--text-light);">PDF, DOC, DOCX (Max 10MB)</p>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="keywords">Keywords</label>
-                            <input type="text" id="keywords" name="keywords" class="form-input"
-                                placeholder="Enter keywords separated by commas">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="author_names">Author Names *</label>
-                            <textarea id="author_names" name="author_names" class="form-textarea"
-                                placeholder="List all authors with their affiliations" required></textarea>
-                        </div>
-                        <div
-                            style="background: var(--bg-lighter); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                            <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">📋 Submission Guidelines
-                            </h4>
-                            <ul style="color: var(--text-light); font-size: 0.9rem; margin-left: 1rem;">
-                                <li>Manuscripts should be original and not published elsewhere</li>
-                                <li>Follow the journal's formatting guidelines</li>
-                                <li>Include proper citations and references</li>
-                                <li>Ensure ethical compliance and data privacy</li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button type="submit" name="action" value="submit" class="btn btn-primary">Submit
-                                Article</button>
-                            <button type="submit" name="action" value="draft" class="btn btn-outline">Save as
-                                Draft</button>
-                        </div>
-                    </form>
                 </div>
             </section>
 

@@ -34,7 +34,28 @@ if ($stmt->fetch()) {
     die("User details not found.");
 }
 
+// Close the user details query
 $stmt->close();
+
+// Check if the user has already made a successful payment
+$sql_check_payment = "SELECT * FROM payments WHERE user_id = ? AND status = 'success'";
+$stmt_check = $conn->prepare($sql_check_payment);
+$stmt_check->bind_param("i", $user_id);
+$stmt_check->execute();
+$result_check = $stmt_check->get_result();
+
+// Debugging: Check if we got the result
+// echo "Result Rows: " . $result_check->num_rows;
+
+$is_paid = $result_check->num_rows > 0; // If the user has made a successful payment
+
+// Debugging: Output the result check
+// echo $is_paid ? "User has paid" : "User has not paid";
+
+// Close the payment check query
+$stmt_check->close();
+
+// Close the database connection
 $conn->close();
 
 // Paystack public key
@@ -104,6 +125,24 @@ $paystack_public_key = "pk_live_312da64742ab9a78bc3725884d6e44d584bf7fc4"; // Yo
         .pay-button:focus {
             outline: none;
         }
+
+        .alert {
+            margin-top: 20px;
+            color: #059669;
+            font-weight: 600;
+        }
+
+        .already-paid {
+            font-size: 18px;
+            color: #059669;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .pay-button {
+            display: <?= $is_paid ? 'none' : 'inline-block';
+                        ?>;
+        }
     </style>
 </head>
 
@@ -111,13 +150,18 @@ $paystack_public_key = "pk_live_312da64742ab9a78bc3725884d6e44d584bf7fc4"; // Yo
 
     <div class="container">
         <h2>Pay for Account Subscription</h2>
-        <p class="user-name">Hello, <?php echo htmlspecialchars($user_name); ?>! Ready to make your payment?</p>
+        <p class="user-name">Hello, <?php echo htmlspecialchars($user_name); ?>!</p>
         <p class="user-name">Your email: <?php echo htmlspecialchars($email); ?></p>
 
-        <!-- Button to trigger the Paystack payment -->
-        <button id="paystackButton" class="pay-button" data-user-id="<?php echo $user_id; ?>">
-            Pay N200
-        </button>
+        <?php if ($is_paid): ?>
+            <p class="already-paid">You have already paid for the subscription. Your account is already active.</p>
+        <?php else: ?>
+            <!-- Button to trigger the Paystack payment -->
+            <button id="paystackButton" class="pay-button" data-user-id="<?php echo $user_id; ?>">
+                Pay N200
+            </button>
+        <?php endif; ?>
+
     </div>
 
     <script>
