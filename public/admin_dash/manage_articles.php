@@ -159,189 +159,189 @@ $conn->close();
     <title>Manage Articles - Journal Platform</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #1e3a8a;
-            --secondary-color: #059669;
-            --danger-color: #dc2626;
-            --bg-light: #f8fafc;
-        }
+    :root {
+        --primary-color: #1e3a8a;
+        --secondary-color: #059669;
+        --danger-color: #dc2626;
+        --bg-light: #f8fafc;
+    }
 
-        body {
-            background-color: var(--bg-light);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            padding-top: 20px;
-        }
+    body {
+        background-color: var(--bg-light);
+        font-family: 'Segoe UI', Arial, sans-serif;
+        padding-top: 20px;
+    }
 
+    .article-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        background: white;
+    }
+
+    .article-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        padding: 1rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .article-info {
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+    }
+
+    .article-info strong {
+        color: var(--primary-color);
+    }
+
+    .btn-edit,
+    .btn-delete,
+    .btn-view {
+        border-radius: 8px;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+    }
+
+    .btn-edit {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+
+    .btn-delete {
+        background-color: var(--danger-color);
+        border-color: var(--danger-color);
+    }
+
+    .btn-view {
+        background-color: #3b82f6;
+        border-color: #3b82f6;
+    }
+
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+        background: var(--primary-color);
+        color: white;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .modal-body {
+        padding: 1.5rem;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: var(--primary-color);
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        transition: border-color 0.2s;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(30, 58, 138, 0.25);
+    }
+
+    .alert {
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+
+    .btn-primary:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    .document-viewer {
+        height: 500px;
+        overflow: hidden;
+    }
+
+    .document-viewer iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    @media (max-width: 576px) {
         .article-card {
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: none;
-            border-radius: 12px;
-            overflow: hidden;
-            background: white;
-        }
-
-        .article-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header {
-            background: var(--primary-color);
-            color: white;
-            font-weight: 600;
-            padding: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .card-body {
-            padding: 1.5rem;
-        }
-
-        .article-info {
-            margin-bottom: 0.75rem;
-            font-size: 0.95rem;
-        }
-
-        .article-info strong {
-            color: var(--primary-color);
+            padding: 1rem;
         }
 
         .btn-edit,
         .btn-delete,
         .btn-view {
-            border-radius: 8px;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-        }
-
-        .btn-edit {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-        }
-
-        .btn-delete {
-            background-color: var(--danger-color);
-            border-color: var(--danger-color);
-        }
-
-        .btn-view {
-            background-color: #3b82f6;
-            border-color: #3b82f6;
-        }
-
-        .modal-content {
-            border-radius: 12px;
-            border: none;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-header {
-            background: var(--primary-color);
-            color: white;
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
-        }
-
-        .modal-body {
-            padding: 1.5rem;
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: var(--primary-color);
-        }
-
-        .form-control,
-        .form-select {
-            border-radius: 8px;
-            border: 1px solid #d1d5db;
-            transition: border-color 0.2s;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(30, 58, 138, 0.25);
-        }
-
-        .alert {
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .btn-primary:disabled {
-            cursor: not-allowed;
-            opacity: 0.7;
+            width: 100%;
+            margin-bottom: 0.5rem;
         }
 
         .document-viewer {
-            height: 500px;
-            overflow: hidden;
+            height: 300px;
         }
-
-        .document-viewer iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        @media (max-width: 576px) {
-            .article-card {
-                margin-bottom: 1.5rem;
-            }
-
-            .card-body {
-                padding: 1rem;
-            }
-
-            .btn-edit,
-            .btn-delete,
-            .btn-view {
-                width: 100%;
-                margin-bottom: 0.5rem;
-            }
-
-            .document-viewer {
-                height: 300px;
-            }
-        }
+    }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1 class="my-4 text-center" style="color: var(--primary-color);">Manage Articles</h1>
-        <a href="../admin_dashboard.php" class="btn btn-outline-primary mb-4">Back to Dashboard</a>
+        <a href="admin_dash.php" class="btn btn-outline-primary mb-4">Back to Dashboard</a>
         <div id="alertContainer"></div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php foreach ($articles as $article): ?>
-                <div class="col">
-                    <div class="card article-card">
-                        <div class="card-header">
-                            <?php echo htmlspecialchars($article['title']); ?>
-                        </div>
-                        <div class="card-body">
-                            <p class="article-info"><strong>Journal:</strong>
-                                <?php echo htmlspecialchars($article['journal']); ?></p>
-                            <p class="article-info"><strong>Status:</strong>
-                                <?php echo htmlspecialchars($article['status']); ?></p>
-                            <p class="article-info"><strong>Submitted By:</strong>
-                                <?php echo htmlspecialchars($article['submitter_name'] ?? 'Unknown'); ?></p>
-                            <p class="article-info"><strong>Submission Date:</strong>
-                                <?php echo htmlspecialchars($article['submission_date'] ?? 'N/A'); ?></p>
-                            <p class="article-info"><strong>DOI:</strong>
-                                <?php echo htmlspecialchars($article['doi'] ?? 'N/A'); ?></p>
-                            <div class="d-flex flex-column flex-sm-row gap-2">
-                                <button class="btn btn-edit btn-sm"
-                                    onclick="openEditModal(<?php echo htmlspecialchars(json_encode($article, JSON_HEX_APOS | JSON_HEX_QUOT)); ?>)">Edit</button>
-                                <button class="btn btn-delete btn-sm"
-                                    onclick="deleteArticle(<?php echo $article['id']; ?>)">Delete</button>
-                                <button class="btn btn-view btn-sm"
-                                    onclick="openViewModal('<?php echo htmlspecialchars($article['file_path'], ENT_QUOTES, 'UTF-8'); ?>', '<?php echo htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8'); ?>')">View
-                                    Document</button>
-                            </div>
+            <div class="col">
+                <div class="card article-card">
+                    <div class="card-header">
+                        <?php echo htmlspecialchars($article['title']); ?>
+                    </div>
+                    <div class="card-body">
+                        <p class="article-info"><strong>Journal:</strong>
+                            <?php echo htmlspecialchars($article['journal']); ?></p>
+                        <p class="article-info"><strong>Status:</strong>
+                            <?php echo htmlspecialchars($article['status']); ?></p>
+                        <p class="article-info"><strong>Submitted By:</strong>
+                            <?php echo htmlspecialchars($article['submitter_name'] ?? 'Unknown'); ?></p>
+                        <p class="article-info"><strong>Submission Date:</strong>
+                            <?php echo htmlspecialchars($article['submission_date'] ?? 'N/A'); ?></p>
+                        <p class="article-info"><strong>DOI:</strong>
+                            <?php echo htmlspecialchars($article['doi'] ?? 'N/A'); ?></p>
+                        <div class="d-flex flex-column flex-sm-row gap-2">
+                            <button class="btn btn-edit btn-sm"
+                                onclick="openEditModal(<?php echo htmlspecialchars(json_encode($article, JSON_HEX_APOS | JSON_HEX_QUOT)); ?>)">Edit</button>
+                            <button class="btn btn-delete btn-sm"
+                                onclick="deleteArticle(<?php echo $article['id']; ?>)">Delete</button>
+                            <button class="btn btn-view btn-sm"
+                                onclick="openViewModal('<?php echo htmlspecialchars($article['file_path'], ENT_QUOTES, 'UTF-8'); ?>', '<?php echo htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8'); ?>')">View
+                                Document</button>
                         </div>
                     </div>
                 </div>
+            </div>
             <?php endforeach; ?>
         </div>
     </div>
@@ -431,127 +431,127 @@ $conn->close();
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function showAlert(message, type = 'danger') {
-            const alertContainer = document.getElementById('alertContainer');
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type} alert-dismissible fade show`;
-            alert.innerHTML = `
+    function showAlert(message, type = 'danger') {
+        const alertContainer = document.getElementById('alertContainer');
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type} alert-dismissible fade show`;
+        alert.innerHTML = `
                 ${message}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             `;
-            alertContainer.appendChild(alert);
-            setTimeout(() => alert.remove(), 5000);
+        alertContainer.appendChild(alert);
+        setTimeout(() => alert.remove(), 5000);
+    }
+
+    function openEditModal(article) {
+        try {
+            document.getElementById('editId').value = article.id || '';
+            document.getElementById('editTitle').value = article.title || '';
+            document.getElementById('editAbstract').value = article.abstract || '';
+            document.getElementById('editKeywords').value = article.keywords || '';
+            document.getElementById('editStatus').value = article.status || 'draft';
+            document.getElementById('editDoi').value = article.doi || '';
+            document.getElementById('editPublishedDate').value = article.published_date || '';
+            document.getElementById('editFilePath').value = article.file_path || '';
+            document.getElementById('editJournal').value = article.journal ||
+                'Sahel Analyst: Journal of Management Sciences';
+
+            const modal = new bootstrap.Modal(document.getElementById('editModal'));
+            modal.show();
+        } catch (e) {
+            console.error('Error opening edit modal:', e);
+            showAlert('Failed to open edit modal.', 'danger');
         }
+    }
 
-        function openEditModal(article) {
-            try {
-                document.getElementById('editId').value = article.id || '';
-                document.getElementById('editTitle').value = article.title || '';
-                document.getElementById('editAbstract').value = article.abstract || '';
-                document.getElementById('editKeywords').value = article.keywords || '';
-                document.getElementById('editStatus').value = article.status || 'draft';
-                document.getElementById('editDoi').value = article.doi || '';
-                document.getElementById('editPublishedDate').value = article.published_date || '';
-                document.getElementById('editFilePath').value = article.file_path || '';
-                document.getElementById('editJournal').value = article.journal ||
-                    'Sahel Analyst: Journal of Management Sciences';
+    function openViewModal(filePath, title) {
+        try {
+            const viewer = document.getElementById('documentViewer');
+            const extension = filePath.split('.').pop().toLowerCase();
+            viewer.innerHTML = '';
 
-                const modal = new bootstrap.Modal(document.getElementById('editModal'));
-                modal.show();
-            } catch (e) {
-                console.error('Error opening edit modal:', e);
-                showAlert('Failed to open edit modal.', 'danger');
-            }
-        }
+            document.getElementById('viewModalLabel').textContent = `View Document: ${title}`;
 
-        function openViewModal(filePath, title) {
-            try {
-                const viewer = document.getElementById('documentViewer');
-                const extension = filePath.split('.').pop().toLowerCase();
-                viewer.innerHTML = '';
-
-                document.getElementById('viewModalLabel').textContent = `View Document: ${title}`;
-
-                if (extension === 'pdf') {
-                    const iframe = document.createElement('iframe');
-                    iframe.src = `manage_articles.php?file=${encodeURIComponent(filePath)}`;
-                    iframe.title = 'Document Viewer';
-                    viewer.appendChild(iframe);
-                } else {
-                    const alertDiv = document.createElement('div');
-                    alertDiv.className = 'alert alert-info';
-                    alertDiv.innerHTML = `
+            if (extension === 'pdf') {
+                const iframe = document.createElement('iframe');
+                iframe.src = `manage_articles.php?file=${encodeURIComponent(filePath)}`;
+                iframe.title = 'Document Viewer';
+                viewer.appendChild(iframe);
+            } else {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert alert-info';
+                alertDiv.innerHTML = `
                         This file type cannot be viewed inline.
                         <a href="manage_articles.php?file=${encodeURIComponent(filePath)}" class="btn btn-primary btn-sm" download>Download Document</a>
                     `;
-                    viewer.appendChild(alertDiv);
-                }
-
-                const modal = new bootstrap.Modal(document.getElementById('viewModal'));
-                modal.show();
-            } catch (e) {
-                console.error('Error opening view modal:', e);
-                showAlert('Failed to open document viewer.', 'danger');
+                viewer.appendChild(alertDiv);
             }
+
+            const modal = new bootstrap.Modal(document.getElementById('viewModal'));
+            modal.show();
+        } catch (e) {
+            console.error('Error opening view modal:', e);
+            showAlert('Failed to open document viewer.', 'danger');
         }
+    }
 
-        document.getElementById('editForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const saveBtn = document.getElementById('saveChangesBtn');
-            saveBtn.disabled = true;
-            saveBtn.textContent = 'Saving...';
+    document.getElementById('editForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const saveBtn = document.getElementById('saveChangesBtn');
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Saving...';
 
-            const formData = new FormData(this);
-            formData.append('action', 'edit');
+        const formData = new FormData(this);
+        formData.append('action', 'edit');
 
-            fetch('', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        showAlert(data.success, 'success');
-                        setTimeout(() => location.reload(), 1000);
-                    } else {
-                        showAlert(data.error || 'Failed to update article.', 'danger');
-                    }
-                })
-                .catch(error => {
-                    console.error('Edit error:', error);
-                    showAlert('An error occurred while updating the article.', 'danger');
-                })
-                .finally(() => {
-                    saveBtn.disabled = false;
-                    saveBtn.textContent = 'Save Changes';
-                });
-        });
+        fetch('', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    showAlert(data.success, 'success');
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    showAlert(data.error || 'Failed to update article.', 'danger');
+                }
+            })
+            .catch(error => {
+                console.error('Edit error:', error);
+                showAlert('An error occurred while updating the article.', 'danger');
+            })
+            .finally(() => {
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save Changes';
+            });
+    });
 
-        function deleteArticle(id) {
-            if (!confirm('Are you sure you want to delete this article? This action cannot be undone.')) return;
+    function deleteArticle(id) {
+        if (!confirm('Are you sure you want to delete this article? This action cannot be undone.')) return;
 
-            const formData = new FormData();
-            formData.append('action', 'delete');
-            formData.append('id', id);
+        const formData = new FormData();
+        formData.append('action', 'delete');
+        formData.append('id', id);
 
-            fetch('', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        showAlert(data.success, 'success');
-                        setTimeout(() => location.reload(), 1000);
-                    } else {
-                        showAlert(data.error || 'Failed to delete article.', 'danger');
-                    }
-                })
-                .catch(() => showAlert('An error occurred while deleting the article.', 'danger'));
-        }
+        fetch('', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showAlert(data.success, 'success');
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    showAlert(data.error || 'Failed to delete article.', 'danger');
+                }
+            })
+            .catch(() => showAlert('An error occurred while deleting the article.', 'danger'));
+    }
     </script>
 </body>
 

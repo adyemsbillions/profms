@@ -7,8 +7,78 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 ?>
+<?php
+// DB connection setup (adjust as needed)
+include('../userdash/db.php');
 
+// Query the total users count
+$total_users = 0;
+$result = $conn->query("SELECT COUNT(id) AS total FROM users");
+if ($result) {
+    $row = $result->fetch_assoc();
+    $total_users = (int)$row['total'];
+}
+$sql = "SELECT COUNT(id) AS total FROM articles WHERE status NOT IN ('approved', 'published')";
+$result = $conn->query($sql);
+$total_review_articles = 0;
+if ($result) {
+    $row = $result->fetch_assoc();
+    $total_review_articles = (int)$row['total'];
+}
 
+$conn->close();
+?>
+
+<?php
+require_once 'stats.php'; // Include stats for users, articles, inquiries, approved, rejected
+
+// Initialize database connection for trends
+$host = "localhost";
+$db   = "fms";
+$user = "root";
+$pass = "";
+
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    error_log("DB Connection failed: " . $conn->connect_error);
+    $submission_trends = [];
+    $approved_trends = [];
+} else {
+    // Fetch submission trends data (grouped by year)
+    $submission_trends = [];
+    try {
+        $stmt_trends = $conn->prepare("SELECT YEAR(submission_date) AS submission_year, COUNT(id) AS article_count FROM articles WHERE submission_date IS NOT NULL GROUP BY submission_year ORDER BY submission_year");
+        if ($stmt_trends) {
+            $stmt_trends->execute();
+            $result_trends = $stmt_trends->get_result();
+            $submission_trends = $result_trends->fetch_all(MYSQLI_ASSOC);
+            $stmt_trends->close();
+        } else {
+            error_log("Prepare failed for submission trends: " . $conn->error);
+        }
+    } catch (Exception $e) {
+        error_log("Submission trends error: " . $e->getMessage());
+    }
+
+    // Fetch approved articles trends data (grouped by year)
+    $approved_trends = [];
+    try {
+        $stmt_approved = $conn->prepare("SELECT YEAR(submission_date) AS submission_year, COUNT(id) AS article_count FROM articles WHERE submission_date IS NOT NULL AND status = 'approved' GROUP BY submission_year ORDER BY submission_year");
+        if ($stmt_approved) {
+            $stmt_approved->execute();
+            $result_approved = $stmt_approved->get_result();
+            $approved_trends = $result_approved->fetch_all(MYSQLI_ASSOC);
+            $stmt_approved->close();
+        } else {
+            error_log("Prepare failed for approved trends: " . $conn->error);
+        }
+    } catch (Exception $e) {
+        error_log("Approved trends error: " . $e->getMessage());
+    }
+
+    $conn->close();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -944,6 +1014,43 @@ if (!isset($_SESSION['admin_id'])) {
                 font-size: 16px;
             }
         }
+
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-header {
+            margin-bottom: 1rem;
+        }
+
+        .chart-title {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 576px) {
+            .card-body {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+
+            .chart-container {
+                padding: 1rem;
+            }
+
+            /* Stack charts vertically on small screens */
+            .chart-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
     </style>
 </head>
 
@@ -981,29 +1088,34 @@ if (!isset($_SESSION['admin_id'])) {
                             <path
                                 d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 7H17c-.8 0-1.54.37-2 1l-3 4v6h2v7h3v-7h2z" />
                         </svg>
-                        User Management
-                        <span class="notification-count">12</span>
+                        Authors Management
+                        <span class="notification-count"><?php echo $total_users; ?></span>
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" onclick="showSection('journals')">
+                    <a class="nav-link" href="manage_articles.php">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path
                                 d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19Z" />
                         </svg>
                         Journal Management
+                        <span class="notification-count"><?php echo $total_articles; ?></span>
                     </a>
                 </li>
+
+
                 <li class="nav-item">
-                    <a class="nav-link" onclick="showSection('articles')">
+                    <a class="nav-link" href="manage_articles_status.php?status=submitted">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path
                                 d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
                         </svg>
                         Article Review
-                        <span class="notification-count">8</span>
+                        <span class="notification-count"><?php echo $total_review_articles; ?></span>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" onclick="showSection('analytics')">
                         <svg class="nav-icon" viewBox="0 0 24 24">
@@ -1022,15 +1134,16 @@ if (!isset($_SESSION['admin_id'])) {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" onclick="showSection('support')">
+                    <a class="nav-link" href="support_inquiries.php">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path
                                 d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z" />
                         </svg>
                         Support Tickets
-                        <span class="notification-count">5</span>
+                        <span class="notification-count"><?php echo $total_inquiries; ?></span>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" onclick="showSection('settings')">
                         <svg class="nav-icon" viewBox="0 0 24 24">
@@ -1142,7 +1255,7 @@ if (!isset($_SESSION['admin_id'])) {
                                 </svg>
                             </div>
                         </div>
-                        <div class="stat-number">$47,892</div>
+                        <div class="stat-number">N47,892</div>
                         <div class="stat-label">Monthly Revenue</div>
                         <div class="stat-change positive">↗ +15% vs last month</div>
                     </div>
@@ -1150,31 +1263,66 @@ if (!isset($_SESSION['admin_id'])) {
 
                 <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 2rem;">
                     <div class="chart-container">
-                        <div class="chart-header">
-                            <h3 class="chart-title">Article Submissions Over Time</h3>
-                        </div>
-                        <?php if (empty($submission_trends)): ?>
-                            <div class="alert alert-info">No submission data available for the chart.</div>
-                        <?php else: ?>
-                            <canvas id="submissionTrendChart"></canvas>
-                        <?php endif; ?>
+                        <h3 class="chart-title">Overview Stats [better view on desktop mode]</h3>
+                        <canvas id="overviewStatsChart"></canvas>
                     </div>
-                    <a href="manage_articles.php" class="btn btn-primary mt-4">Manage Articles</a>
 
-                    <div class="info-card">
-                        <div class="card-header">
-                            <h3 class="card-title">🚨 System Alerts</h3>
-                        </div>
-                        <div class="alert alert-warning">
-                            <strong>High Review Queue:</strong> 47 articles pending review
-                        </div>
-                        <div class="alert alert-info">
-                            <strong>Server Load:</strong> CPU usage at 78%
-                        </div>
-                        <div class="alert alert-success">
-                            <strong>Backup Complete:</strong> Daily backup successful
-                        </div>
-                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        const overviewData = {
+                            labels: ['Total Users', 'Total Articles', 'Total Inquiries', 'Total Rejected Articles',
+                                'Total Approved Articles'
+                            ],
+                            datasets: [{
+                                label: 'Count',
+                                data: [10, 20, 5, 3, 12], // static test data
+                                backgroundColor: ['#1e3a8a', '#059669', '#dc2626', '#f59e0b', '#3b82f6'],
+                                borderColor: '#fff',
+                                borderWidth: 2
+                            }]
+                        };
+
+                        const ctx = document.getElementById('overviewStatsChart').getContext('2d');
+
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: overviewData,
+                            options: {
+                                responsive: true,
+                                aspectRatio: window.innerWidth < 769 ? 0.5 : 2,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: {
+                                            stepSize: 1
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Count'
+                                        }
+                                    },
+                                    x: {
+                                        title: {
+                                            display: true,
+                                            text: 'Categories'
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Overview Stats'
+                                    }
+                                }
+                            }
+                        });
+                    </script>
+
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
                 </div>
 
                 <div class="table-container">
@@ -1700,127 +1848,6 @@ if (!isset($_SESSION['admin_id'])) {
             </section>
 
             <!-- Support Tickets Section -->
-            <section id="support" class="content-section">
-                <div class="page-header">
-                    <div>
-                        <h1 class="page-title">Support Tickets</h1>
-                        <p class="page-subtitle">Manage user support requests and issues</p>
-                    </div>
-                    <div class="header-actions">
-                        <button class="btn btn-outline btn-small">Export Tickets</button>
-                        <button class="btn btn-primary btn-small">Create Ticket</button>
-                    </div>
-                </div>
-
-                <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                    <div class="stat-card danger">
-                        <div class="stat-number">5</div>
-                        <div class="stat-label">Urgent Tickets</div>
-                    </div>
-                    <div class="stat-card warning">
-                        <div class="stat-number">12</div>
-                        <div class="stat-label">Open Tickets</div>
-                    </div>
-                    <div class="stat-card secondary">
-                        <div class="stat-number">47</div>
-                        <div class="stat-label">Resolved Today</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">2.4h</div>
-                        <div class="stat-label">Avg Response Time</div>
-                    </div>
-                </div>
-
-                <div class="table-container">
-                    <div class="table-header">
-                        <h3 class="table-title">Support Queue</h3>
-                        <div class="table-actions">
-                            <div class="search-box">
-                                <svg class="search-icon" viewBox="0 0 24 24">
-                                    <path
-                                        d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
-                                </svg>
-                                <input type="text" class="search-input" placeholder="Search tickets...">
-                            </div>
-                            <select class="form-select" style="width: auto;">
-                                <option>All Priorities</option>
-                                <option>Urgent</option>
-                                <option>High</option>
-                                <option>Medium</option>
-                                <option>Low</option>
-                            </select>
-                        </div>
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Ticket ID</th>
-                                <th>Subject</th>
-                                <th>User</th>
-                                <th>Priority</th>
-                                <th>Status</th>
-                                <th>Created</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#SUP-001</td>
-                                <td>
-                                    <strong>Payment Processing Error</strong><br>
-                                    <small style="color: var(--text-light);">Unable to process subscription
-                                        payment</small>
-                                </td>
-                                <td>Dr. Sarah Wilson</td>
-                                <td><span class="status-badge status-rejected">Urgent</span></td>
-                                <td><span class="status-badge status-pending">Open</span></td>
-                                <td>2 hours ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary btn-small">Respond</button>
-                                        <button class="btn btn-outline btn-small">View</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#SUP-002</td>
-                                <td>
-                                    <strong>Article Upload Issue</strong><br>
-                                    <small style="color: var(--text-light);">Cannot upload PDF files larger than
-                                        5MB</small>
-                                </td>
-                                <td>Dr. Mike Johnson</td>
-                                <td><span class="status-badge status-pending">High</span></td>
-                                <td><span class="status-badge status-pending">Open</span></td>
-                                <td>4 hours ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary btn-small">Respond</button>
-                                        <button class="btn btn-outline btn-small">View</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#SUP-003</td>
-                                <td>
-                                    <strong>Account Access Problem</strong><br>
-                                    <small style="color: var(--text-light);">Forgot password, reset not working</small>
-                                </td>
-                                <td>Dr. Lisa Chen</td>
-                                <td><span class="status-badge status-approved">Medium</span></td>
-                                <td><span class="status-badge status-approved">Resolved</span></td>
-                                <td>1 day ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-outline btn-small">View</button>
-                                        <button class="btn btn-secondary btn-small">Close</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
 
             <!-- System Settings Section -->
             <section id="settings" class="content-section">
@@ -2210,7 +2237,9 @@ if (!isset($_SESSION['admin_id'])) {
             lastTouchEnd = now;
         }, false);
     </script>
-    <script src="submission_trends.js"></script>
+
+
+
 </body>
 
 </html>
