@@ -1,6 +1,5 @@
 <?php
 
-
 // Redirect if not logged in
 if (!isset($_SESSION['admin_id'])) {
     header('Location: index.php');
@@ -18,6 +17,7 @@ $total_articles = 0;
 $total_inquiries = 0;
 $total_rejected = 0;
 $total_approved = 0;
+$total_amount = 0;  // Initialize total amount
 
 // DB connection
 $host = "localhost";
@@ -85,6 +85,17 @@ try {
         $stmt_approved->close();
     } else {
         error_log("Prepare failed for approved articles: " . $conn->error);
+    }
+
+    // Fetch total amount paid (only successful payments)
+    $stmt_amount = $conn->prepare("SELECT SUM(amount) AS total_amount FROM payments WHERE status = 'success'");
+    if ($stmt_amount) {
+        $stmt_amount->execute();
+        $result_amount = $stmt_amount->get_result();
+        $total_amount = $result_amount->fetch_assoc()['total_amount'] ?? 0;
+        $stmt_amount->close();
+    } else {
+        error_log("Prepare failed for total amount: " . $conn->error);
     }
 } catch (Exception $e) {
     error_log("Stats error: " . $e->getMessage());

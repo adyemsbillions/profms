@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('stats.php');
+include('recent.php');
 
 if (!isset($_SESSION['admin_id'])) {
     header('Location: index.php');
@@ -1065,7 +1066,7 @@ if ($conn->connect_error) {
                 <div class="logo">Admin Panel</div>
                 <div class="admin-badge">Administrator</div>
                 <div class="admin-info">
-                    <div class="admin-avatar">AD</div>
+
                     <div class="admin-details">
 
                         <p><?php echo htmlspecialchars($_SESSION['admin_name']); ?></p>
@@ -1115,7 +1116,7 @@ if ($conn->connect_error) {
                         <span class="notification-count"><?php echo $total_review_articles; ?></span>
                     </a>
                 </li>
-
+                <!-- 
                 <li class="nav-item">
                     <a class="nav-link" onclick="showSection('analytics')">
                         <svg class="nav-icon" viewBox="0 0 24 24">
@@ -1123,14 +1124,14 @@ if ($conn->connect_error) {
                         </svg>
                         Analytics & Reports
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" onclick="showSection('revenue')">
+                    <a class="nav-link" href="payment_fetch.php">
                         <svg class="nav-icon" viewBox="0 0 24 24">
                             <path
                                 d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z" />
                         </svg>
-                        Revenue & Billing
+                        Revenue Generated
                     </a>
                 </li>
                 <li class="nav-item">
@@ -1143,7 +1144,7 @@ if ($conn->connect_error) {
                         <span class="notification-count"><?php echo $total_inquiries; ?></span>
                     </a>
                 </li>
-
+                <!-- 
                 <li class="nav-item">
                     <a class="nav-link" onclick="showSection('settings')">
                         <svg class="nav-icon" viewBox="0 0 24 24">
@@ -1152,7 +1153,7 @@ if ($conn->connect_error) {
                         </svg>
                         System Settings
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item"
                     style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
                     <a class="nav-link" onclick="logout()">
@@ -1255,9 +1256,9 @@ if ($conn->connect_error) {
                                 </svg>
                             </div>
                         </div>
-                        <div class="stat-number">N47,892</div>
-                        <div class="stat-label">Monthly Revenue</div>
-                        <div class="stat-change positive">↗ +15% vs last month</div>
+                        <div class="stat-number"><?php echo number_format($total_amount, 2); ?></div>
+                        <div class="stat-label">Total Amount Generated</div>
+                        <div class="stat-change positive">↗ All time mount for succesful payment</div>
                     </div>
                 </div>
 
@@ -1324,56 +1325,51 @@ if ($conn->connect_error) {
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
                 </div>
-
-                <div class="table-container">
-                    <div class="table-header">
-                        <h3 class="table-title">Recent Activities</h3>
-                        <div class="table-actions">
-                            <button class="btn btn-outline btn-small">View All</button>
+                <div class="container">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">Recent Activities</h3>
+                            <div class="table-actions">
+                                <button class="btn btn-outline btn-small">View All</button>
+                            </div>
                         </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Activity</th>
+                                    <th>User</th>
+                                    <th>Type</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($recent_users)): ?>
+                                    <?php foreach ($recent_users as $user): ?>
+                                        <tr>
+                                            <td>Author registration: <?php echo htmlspecialchars($user['email']); ?></td>
+                                            <td><?php echo htmlspecialchars($user['first_name']) . ' ' . htmlspecialchars($user['last_name']); ?>
+                                            </td>
+                                            <td>Registration</td>
+                                            <td><?php echo date('F j, Y, g:i a', strtotime($user['registration_date'])); ?></td>
+                                            <td>
+                                                <span
+                                                    class="status-badge <?php echo $user['is_approved'] ? 'status-approved' : 'status-pending'; ?>">
+                                                    <?php echo $user['is_approved'] ? 'Active' : 'Pending'; ?>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="5">No recent activities found.</td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
                     </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Activity</th>
-                                <th>User</th>
-                                <th>Type</th>
-                                <th>Time</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>New article submission: "AI in Healthcare"</td>
-                                <td>Dr. John Smith</td>
-                                <td>Submission</td>
-                                <td>2 hours ago</td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>User registration: jane.doe@university.edu</td>
-                                <td>Jane Doe</td>
-                                <td>Registration</td>
-                                <td>4 hours ago</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td>Article approved: "Machine Learning Trends"</td>
-                                <td>Dr. Mike Johnson</td>
-                                <td>Review</td>
-                                <td>6 hours ago</td>
-                                <td><span class="status-badge status-approved">Approved</span></td>
-                            </tr>
-                            <tr>
-                                <td>Support ticket created: Payment issue</td>
-                                <td>Sarah Wilson</td>
-                                <td>Support</td>
-                                <td>8 hours ago</td>
-                                <td><span class="status-badge status-pending">Open</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
+
             </section>
 
 
@@ -1605,106 +1601,7 @@ if ($conn->connect_error) {
             </section>
 
             <!-- Analytics & Reports Section -->
-            <section id="analytics" class="content-section">
-                <div class="page-header">
-                    <div>
-                        <h1 class="page-title">Analytics & Reports</h1>
-                        <p class="page-subtitle">Platform performance and usage statistics</p>
-                    </div>
-                    <div class="header-actions">
-                        <button class="btn btn-outline btn-small">Download Report</button>
-                        <button class="btn btn-primary btn-small">Schedule Report</button>
-                    </div>
-                </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
-                    <div class="chart-container">
-                        <div class="chart-header">
-                            <h3 class="chart-title">User Growth</h3>
-                            <select class="form-select" style="width: auto;">
-                                <option>Last 6 months</option>
-                                <option>Last year</option>
-                                <option>All time</option>
-                            </select>
-                        </div>
-                        <div class="chart-placeholder">
-                            📈 User registration and growth chart would be displayed here
-                        </div>
-                    </div>
-
-                    <div class="chart-container">
-                        <div class="chart-header">
-                            <h3 class="chart-title">Revenue Trends</h3>
-                            <select class="form-select" style="width: auto;">
-                                <option>Monthly</option>
-                                <option>Quarterly</option>
-                                <option>Yearly</option>
-                            </select>
-                        </div>
-                        <div class="chart-placeholder">
-                            💰 Revenue and subscription trends chart would be displayed here
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
-                    <div class="chart-container">
-                        <div class="chart-header">
-                            <h3 class="chart-title">Article Publication Rate</h3>
-                        </div>
-                        <div class="chart-placeholder">
-                            📊 Article submission and publication rate chart
-                        </div>
-                    </div>
-
-                    <div class="chart-container">
-                        <div class="chart-header">
-                            <h3 class="chart-title">Journal Performance</h3>
-                        </div>
-                        <div class="chart-placeholder">
-                            📋 Journal-wise performance metrics chart
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cards-grid">
-                    <div class="info-card">
-                        <div class="card-header">
-                            <h3 class="card-title">📊 Key Metrics</h3>
-                        </div>
-                        <div class="card-content">
-                            <p><strong>Average Review Time:</strong> 14 days</p>
-                            <p><strong>Acceptance Rate:</strong> 68%</p>
-                            <p><strong>User Retention:</strong> 85%</p>
-                            <p><strong>Platform Uptime:</strong> 99.9%</p>
-                        </div>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="card-header">
-                            <h3 class="card-title">🎯 Performance Goals</h3>
-                        </div>
-                        <div class="card-content">
-                            <p><strong>Monthly Submissions:</strong> 1,500 (Goal: 1,200) ✅</p>
-                            <p><strong>New Users:</strong> 250 (Goal: 300) ⚠️</p>
-                            <p><strong>Revenue Target:</strong> $45K (Goal: $50K) ⚠️</p>
-                            <p><strong>User Satisfaction:</strong> 4.8/5 (Goal: 4.5) ✅</p>
-                        </div>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="card-header">
-                            <h3 class="card-title">🔍 Top Performing Content</h3>
-                        </div>
-                        <div class="card-content">
-                            <p><strong>Most Cited:</strong> "AI in Medical Diagnosis"</p>
-                            <p><strong>Most Downloaded:</strong> "Blockchain Security"</p>
-                            <p><strong>Trending Topic:</strong> Machine Learning</p>
-                            <p><strong>Popular Journal:</strong> AI Medical Journal</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <!-- Revenue & Billing Section -->
             <section id="revenue" class="content-section">
