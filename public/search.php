@@ -213,7 +213,7 @@ $searchQuery = isset($_POST['search']) ? trim($_POST['search']) : '';
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.php">Home</a></li>
                     <li><a href="index.html#about">About</a></li>
                     <li><a href="index.html#features">Research Areas</a></li>
                     <li><a href="index.html#publications">Publications</a></li>

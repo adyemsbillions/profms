@@ -27,11 +27,13 @@
 
             <div class="search-container">
                 <div class="search-box">
-                    <input type="text" name="search" placeholder="Search articles, authors, keywords..."
-                        id="searchInput">
-                    <button type="button" class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
+                    <form action="search.php" method="POST">
+                        <input type="text" name="search" placeholder="Search articles, authors, keywords..."
+                            id="searchInput">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
 

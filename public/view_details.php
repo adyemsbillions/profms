@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 
 // Handle file streaming for documents
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['file'])) {
-    $base_path = realpath(__DIR__ . '/Uploads'); // Adjusted to public/Uploads
+    $base_path = realpath(__DIR__ . '/Uploads/images/'); // Adjusted to public/Uploads
     $file_path = urldecode($_GET['file']);
     $relative_path = preg_replace('#^Uploads[/\\\\]#i', '', $file_path);
     $absolute_path = realpath($base_path . '/' . $relative_path);
@@ -389,12 +389,12 @@ $published_date = ($article['status'] === 'published')
 
     <section class="article-details">
         <div class="container">
-            <a href="<?php echo isset($_SESSION['admin_id']) ? 'manage_articles.php' : 'search.php'; ?>"
-                class="btn btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+            <a href="<?php echo isset($_SESSION['admin_id']) ? 'search.php' : 'search.php'; ?>" class="btn btn-back"><i
+                    class="fas fa-arrow-left"></i> Back</a>
             <div class="article-card mt-4">
-                <?php if ($article['image_path'] && file_exists(__DIR__ . '/Uploads/' . basename($article['image_path']))) : ?>
-                <img src="Uploads/<?php echo htmlspecialchars(basename($article['image_path'])); ?>" alt="Article Image"
-                    class="article-image">
+                <?php if ($article['image_path'] && file_exists(__DIR__ . '/Uploads/images/' . basename($article['image_path']))) : ?>
+                <img src="Uploads/images/<?php echo htmlspecialchars(basename($article['image_path'])); ?>"
+                    alt="Article Image" class="article-image">
                 <?php else : ?>
                 <div class="article-image-placeholder">No Image</div>
                 <?php endif; ?>
