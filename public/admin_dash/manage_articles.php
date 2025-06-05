@@ -83,8 +83,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             if (!in_array($journal, $valid_journals)) {
                 throw new Exception('Invalid journal.');
             }
-            if ($published_date && !DateTime::createFromFormat('Y-m-d H:i:s', $published_date)) {
-                throw new Exception('Invalid published date format.');
+            // Validate and convert published_date
+            if ($published_date) {
+                // Convert YYYY-MM-DDThh:mm:ss to YYYY-MM-DD HH:MM:SS
+                $date = DateTime::createFromFormat('Y-m-d\TH:i:s', $published_date);
+                if (!$date) {
+                    // Try without seconds
+                    $date = DateTime::createFromFormat('Y-m-d\TH:i', $published_date);
+                    if ($date) {
+                        $published_date = $date->format('Y-m-d H:i:00');
+                    } else {
+                        throw new Exception('Invalid published date format.');
+                    }
+                } else {
+                    $published_date = $date->format('Y-m-d H:i:s');
+                }
             }
 
             // Handle publication image upload
@@ -403,14 +416,14 @@ $conn->close();
         <a href="admin_dash.php" class="btn btn-outline-primary mb-4">Back to Dashboard</a>
         <div id="alertContainer"></div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <?php foreach ($articles as $article): ?>
+            <?php foreach ($articles as $article) : ?>
             <div class="col">
                 <div class="card article-card">
                     <div class="card-header">
-                        <?php if ($article['image_path'] && file_exists(__DIR__ . '/../../public/' . $article['image_path'])): ?>
+                        <?php if ($article['image_path'] && file_exists(__DIR__ . '/../../public/' . $article['image_path'])) : ?>
                         <img src="../../public/<?= htmlspecialchars($article['image_path']) ?>" alt="Publication Image"
                             class="article-image">
-                        <?php else: ?>
+                        <?php else : ?>
                         <div class="article-image-placeholder">No Image</div>
                         <?php endif; ?>
                         <span><?php echo htmlspecialchars($article['title']); ?></span>
@@ -484,9 +497,11 @@ $conn->close();
                             <input type="text" class="form-control" id="editDoi" name="doi">
                         </div>
                         <div class="mb-3">
-                            <label for="editPublishedDate" class="form-label">Published Date (YYYY-MM-DD
-                                HH:MM:SS)</label>
-                            <input type="text" class="form-control" id="editPublishedDate" name="published_date">
+                            <label for="editPublishedDate" class="form-label">Published Date</label>
+                            <input type="datetime-local" class="form-control" id="editPublishedDate"
+                                name="published_date">
+                            <small class="form-text text-muted">Select date and time or leave blank if not
+                                published.</small>
                         </div>
                         <div class="mb-3">
                             <label for="editFilePath" class="form-label">File Path</label>
@@ -554,7 +569,14 @@ $conn->close();
             document.getElementById('editKeywords').value = article.keywords || '';
             document.getElementById('editStatus').value = article.status || 'draft';
             document.getElementById('editDoi').value = article.doi || '';
-            document.getElementById('editPublishedDate').value = article.published_date || '';
+            // Convert YYYY-MM-DD HH:MM:SS to YYYY-MM-DDThh:mm for datetime-local
+            if (article.published_date) {
+                const date = new Date(article.published_date);
+                const formattedDate = date.toISOString().slice(0, 16); // YYYY-MM-DDThh:mm
+                document.getElementById('editPublishedDate').value = formattedDate;
+            } else {
+                document.getElementById('editPublishedDate').value = '';
+            }
             document.getElementById('editFilePath').value = article.file_path || '';
             document.getElementById('editJournal').value = article.journal ||
                 'Sahel Analyst: Journal of Management Sciences';

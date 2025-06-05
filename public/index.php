@@ -27,13 +27,33 @@
 
             <div class="search-container">
                 <div class="search-box">
-                    <input type="text" placeholder="Search articles, authors, keywords..." id="searchInput">
+                    <input type="text" name="search" placeholder="Search articles, authors, keywords..."
+                        id="searchInput">
                     <button type="button" class="search-btn">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
             </div>
 
+            <div id="searchResults"></div>
+
+            <script>
+            function performSearch() {
+                const query = document.getElementById('searchInput').value;
+                fetch('search.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'search=' + encodeURIComponent(query)
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('searchResults').innerHTML = data;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+            </script>
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
