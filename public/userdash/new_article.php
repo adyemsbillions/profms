@@ -228,6 +228,18 @@ if (!isset($_SESSION['user_id'])) {
         margin-bottom: 0.5rem;
     }
 
+    .view-journals-link {
+        font-size: 0.85rem;
+        color: var(--primary-color);
+        text-decoration: none;
+        margin-top: 0.5rem;
+        display: inline-block;
+    }
+
+    .view-journals-link:hover {
+        text-decoration: underline;
+    }
+
     @media (max-width: 768px) {
         body {
             padding: 1.5rem;
@@ -288,7 +300,6 @@ if (!isset($_SESSION['user_id'])) {
             <h1 class="page-title">Submit New Article</h1>
             <p class="page-subtitle">Submit your manuscript for publication</p>
         </div>
-
         <div class="form-container">
             <div id="formMessage" class="form-message"></div>
             <form id="submitForm" method="POST" enctype="multipart/form-data" action="submit_article.php">
@@ -312,6 +323,7 @@ if (!isset($_SESSION['user_id'])) {
                             Economic Development (JRED)</option>
                         <option value="African Journal of Management">African Journal of Management</option>
                     </select>
+                    <a href="publications_display.php" class="view-journals-link">View Journals</a>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="publication_image">Upload Publication Image</label>
@@ -352,8 +364,6 @@ if (!isset($_SESSION['user_id'])) {
             </form>
         </div>
     </section>
-
-
 </body>
 
 </html>

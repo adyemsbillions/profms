@@ -399,8 +399,8 @@ function e($string)
         <!-- Support Contact Info -->
         <div class="support-contact">
             <p>Need immediate assistance? Contact us:</p>
-            <p>Email: <a href="mailto:support@example.com">fadimaalfa12@unimaid.edu.ng</a></p>
-            <p>Phone: <a href="tel:+1234567890">+2348034536092</a></p>
+            <p>Email: <a href="mailto:fadimaalfa12@unimaid.edu.ng">fadimaalfa12@unimaid.edu.ng</a></p>
+            <p>Phone: <a href="tel:+2348034536092">+2348034536092</a></p>
             <p>faculty of management sciences university of maiduguri</p>
         </div>
     </div>

@@ -59,7 +59,7 @@
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li><a href="all_archives.php">Achieves</a></li>
                     <li><a href="all_articles.php">All articles</a></li>
                     <li><a href="#publications">Publications</a></li>
                     <li><a href="#submission">Submit</a></li>
@@ -87,7 +87,8 @@
                 </div>
                 <h2>Advancing Management Science Research</h2>
                 <p>A premier academic publication by the Faculty of Management Science at the University of Maiduguri,
-                    fostering innovative research in business, finance, and administration.</p>
+                    fostering innovative research in Journal of Resources & Economic Development (JRED), African Journal
+                    of Management and Journal of management sciences.</p>
                 <?php
                 // Database connection configuration
                 $host = "localhost";
@@ -608,7 +609,7 @@
                     <div class="link-group">
                         <h3>Journal</h3>
                         <ul>
-                            <li><a href="#about">About Us</a></li>
+                            <li><a href="all_archives.php">Achieves</a></li>
                             <li><a href="all_articles.php">All articles</a></li>
                             <li><a href="#publications">Current Issue</a></li>
                             <li><a href="#">Archives</a></li>
@@ -673,7 +674,7 @@
                         <a href="#">Privacy Policy</a>
                         <a href="#">Terms of Service</a>
                         <a href="#">Accessibility</a>
-                        <a href="#">Site Map</a>
+                        <a href="about_dev.php">About Developer</a>
                     </div>
                 </div>
 
