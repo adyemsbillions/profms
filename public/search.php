@@ -23,7 +23,7 @@ $searchQuery = isset($_POST['search']) ? trim($_POST['search']) : '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results - FMS Journal</title>
+    <title>Search Results - SAHEL Analyst</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link
@@ -196,7 +196,7 @@ $searchQuery = isset($_POST['search']) ? trim($_POST['search']) : '';
                     <i class="fas fa-graduation-cap"></i>
                 </div>
                 <div class="logo-text">
-                    <h1>FMS Journal</h1>
+                    <h1>SAHEL Analyst</h1>
                     <p>Faculty of Management Science</p>
                 </div>
             </div>
@@ -313,7 +313,7 @@ $searchQuery = isset($_POST['search']) ? trim($_POST['search']) : '';
                             <i class="fas fa-graduation-cap"></i>
                         </div>
                         <div class="logo-text">
-                            <h2>FMS Journal</h2>
+                            <h2>SAHEL Analyst</h2>
                             <p>Faculty of Management Science</p>
                         </div>
                     </div>
@@ -389,7 +389,7 @@ $searchQuery = isset($_POST['search']) ? trim($_POST['search']) : '';
             </div>
             <div class="footer-bottom">
                 <div class="footer-bottom-content">
-                    <p>© 2025 FMS Journal - Faculty of Management Science. All rights reserved.</p>
+                    <p>© 2025 SAHEL Analyst - Faculty of Management Science. All rights reserved.</p>
                     <div class="footer-bottom-links">
                         <a href="#">Privacy Policy</a>
                         <a href="#">Terms of Service</a>

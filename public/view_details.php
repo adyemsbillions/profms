@@ -18,34 +18,6 @@ if ($conn->connect_error) {
     die("Database connection failed.");
 }
 
-// Handle file streaming for documents
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['file'])) {
-    $base_path = realpath(__DIR__ . '/Uploads/images/'); // Adjusted to public/Uploads
-    $file_path = urldecode($_GET['file']);
-    $relative_path = preg_replace('#^Uploads[/\\\\]#i', '', $file_path);
-    $absolute_path = realpath($base_path . '/' . $relative_path);
-
-    error_log("File path requested: $file_path");
-    error_log("Relative path: $relative_path");
-    error_log("Base path: $base_path");
-    error_log("Absolute path: $absolute_path");
-
-    if ($absolute_path && file_exists($absolute_path) && strpos($absolute_path, $base_path) === 0) {
-        $mime_type = mime_content_type($absolute_path);
-        header('Content-Type: ' . $mime_type);
-        if (pathinfo($absolute_path, PATHINFO_EXTENSION) !== 'pdf') {
-            header('Content-Disposition: attachment; filename="' . basename($absolute_path) . '"');
-        }
-        readfile($absolute_path);
-        exit;
-    } else {
-        error_log("Invalid or missing file: $absolute_path");
-        header('HTTP/1.1 404 Not Found');
-        echo "File not found.";
-        exit;
-    }
-}
-
 // Fetch article details
 $article = null;
 if (isset($_GET['id'])) {
@@ -93,6 +65,17 @@ $conn->close();
 $published_date = ($article['status'] === 'published')
     ? (!empty($article['published_date']) ? date('F Y', strtotime($article['published_date'])) : 'Publication Date TBD')
     : ($article['status'] === 'approved' ? 'Approved, Awaiting Publication' : 'N/A');
+
+// Clean and normalize file path
+$filePath = ltrim($article['file_path'], '/\\');
+// Log file path for debugging
+error_log("File path for article {$article['id']}: {$filePath}");
+error_log("Full file path: " . __DIR__ . '/' . $filePath);
+error_log("File exists: " . (file_exists(__DIR__ . '/' . $filePath) ? 'Yes' : 'No'));
+
+// Determine download label based on file extension
+$fileExtension = strtolower(pathinfo($article['file_path'], PATHINFO_EXTENSION));
+$downloadLabel = ($fileExtension === 'pdf') ? 'Download PDF' : 'Download Document';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +83,7 @@ $published_date = ($article['status'] === 'published')
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article Details - FMS Journal</title>
+    <title>Article Details - SAHEL Analyst</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link
@@ -369,7 +352,7 @@ $published_date = ($article['status'] === 'published')
                     <i class="fas fa-graduation-cap"></i>
                 </div>
                 <div class="logo-text">
-                    <h1>FMS Journal</h1>
+                    <h1>SAHEL Analyst</h1>
                     <p>Faculty of Management Science</p>
                 </div>
             </div>
@@ -389,8 +372,7 @@ $published_date = ($article['status'] === 'published')
 
     <section class="article-details">
         <div class="container">
-            <a href="<?php echo isset($_SESSION['admin_id']) ? 'search.php' : 'search.php'; ?>" class="btn btn-back"><i
-                    class="fas fa-arrow-left"></i> Back</a>
+            <a href="search.php" class="btn btn-back"><i class="fas fa-arrow-left"></i> Back</a>
             <div class="article-card mt-4">
                 <?php if ($article['image_path'] && file_exists(__DIR__ . '/Uploads/images/' . basename($article['image_path']))) : ?>
                 <img src="Uploads/images/<?php echo htmlspecialchars(basename($article['image_path'])); ?>"
@@ -415,23 +397,21 @@ $published_date = ($article['status'] === 'published')
                         <p><strong>Status:</strong> <?php echo htmlspecialchars($article['status']); ?></p>
                         <p><strong>Article ID:</strong> <?php echo htmlspecialchars($article['id']); ?></p>
                     </div>
-                    <?php
-                    $extension = pathinfo($article['file_path'], PATHINFO_EXTENSION);
-                    if (strtolower($extension) === 'pdf') : ?>
+                    <?php if (strtolower($fileExtension) === 'pdf') : ?>
                     <div class="document-viewer">
-                        <iframe src="view_details.php?file=<?php echo urlencode($article['file_path']); ?>"
-                            title="Document Viewer"></iframe>
+                        <iframe src="<?php echo htmlspecialchars($filePath); ?>" title="Document Viewer"></iframe>
                     </div>
                     <?php else : ?>
                     <div class="alert alert-info">
                         This file type cannot be viewed inline.
-                        <a href="view_details.php?file=<?php echo urlencode($article['file_path']); ?>"
-                            class="btn btn-primary btn-sm" download>Download Document</a>
+                        <a href="<?php echo htmlspecialchars($filePath); ?>" class="btn btn-primary btn-sm"
+                            download="<?php echo htmlspecialchars(basename($article['file_path'])); ?>">Download
+                            Document</a>
                     </div>
                     <?php endif; ?>
-                    <a href="view_details.php?file=<?php echo urlencode($article['file_path']); ?>"
-                        class="btn btn-download" download>
-                        <i class="fas fa-download"></i> Download PDF
+                    <a href="<?php echo htmlspecialchars($filePath); ?>" class="btn btn-download"
+                        download="<?php echo htmlspecialchars(basename($article['file_path'])); ?>">
+                        <i class="fas fa-download"></i> <?php echo $downloadLabel; ?>
                     </a>
                 </div>
             </div>
@@ -442,7 +422,7 @@ $published_date = ($article['status'] === 'published')
         <div class="container">
             <div class="footer-content">
                 <div class="footer-main">
-                    <h2>FMS Journal</h2>
+                    <h2>SAHEL Analyst</h2>
                     <p>Advancing management science research through rigorous peer-reviewed publications and fostering
                         academic excellence.</p>
                     <div class="social-links">
@@ -480,7 +460,7 @@ $published_date = ($article['status'] === 'published')
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 FMS Journal - Faculty of Management Science. All rights reserved.</p>
+                <p>© 2025 SAHEL Analyst - Faculty of Management Science. All rights reserved.</p>
             </div>
         </div>
     </footer>

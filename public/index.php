@@ -20,7 +20,7 @@
                     <i class="fas fa-graduation-cap"></i>
                 </div>
                 <div class="logo-text">
-                    <h1>FMS Journal</h1>
+                    <h1>SAHEL Analyst</h1>
                     <p>Faculty of Management Science</p>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#features">Research Areas</a></li>
+                    <li><a href="all_articles.php">All articles</a></li>
                     <li><a href="#publications">Publications</a></li>
                     <li><a href="#submission">Submit</a></li>
                     <li><a href="login.php" class="btn btn-outline">Login</a></li>
@@ -88,18 +88,61 @@
                 <h2>Advancing Management Science Research</h2>
                 <p>A premier academic publication by the Faculty of Management Science at the University of Maiduguri,
                     fostering innovative research in business, finance, and administration.</p>
+                <?php
+                // Database connection configuration
+                $host = "localhost";
+                $db   = "fms";
+                $user = "root";
+                $pass = "";
+
+                $conn = new mysqli($host, $user, $pass, $db);
+                if ($conn->connect_error) {
+                    error_log("DB Connection failed: " . $conn->connect_error);
+                    $total_articles = 0;
+                    $total_authors = 0;
+                    $total_approved = 0;
+                } else {
+                    // Query for total articles (all articles, regardless of status)
+                    $sql_articles = "SELECT COUNT(*) AS total_articles FROM articles";
+                    $result_articles = $conn->query($sql_articles);
+                    $total_articles = $result_articles && $result_articles->num_rows > 0
+                        ? $result_articles->fetch_assoc()['total_articles']
+                        : 0;
+                    error_log("Total articles: $total_articles");
+
+                    // Query for total authors (all users)
+                    $sql_authors = "SELECT COUNT(*) AS total_authors FROM users";
+                    $result_authors = $conn->query($sql_authors);
+                    $total_authors = $result_authors && $result_authors->num_rows > 0
+                        ? $result_authors->fetch_assoc()['total_authors']
+                        : 0;
+                    error_log("Total authors: $total_authors");
+
+                    // Query for approved/published articles
+                    $sql_approved = "SELECT COUNT(*) AS total_approved FROM articles WHERE status IN ('approved', 'published')";
+                    $result_approved = $conn->query($sql_approved);
+                    $total_approved = $result_approved && $result_approved->num_rows > 0
+                        ? $result_approved->fetch_assoc()['total_approved']
+                        : 0;
+                    error_log("Total approved/published: $total_approved");
+
+                    // Close connection
+                    $conn->close();
+                }
+                ?>
+
                 <div class="hero-stats">
                     <div class="stat-item">
-                        <span class="stat-number">500+</span>
+                        <span class="stat-number"><?php echo htmlspecialchars($total_articles); ?></span>
                         <span class="stat-label">Published Articles</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Countries</span>
+                        <span class="stat-number"><?php echo htmlspecialchars($total_authors); ?></span>
+                        <span class="stat-label">Authors</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">95%</span>
-                        <span class="stat-label">Acceptance Rate</span>
+                        <span class="stat-number"><?php echo htmlspecialchars($total_approved); ?></span>
+                        <span class="stat-label">Approved</span>
                     </div>
                 </div>
                 <div class="hero-buttons">
@@ -125,7 +168,7 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2 class="section-title">About FMS Journal</h2>
+                    <h2 class="section-title">About SAHEL Analyst</h2>
                     <p class="section-description">The Faculty of Management Science Journal is a distinguished
                         peer-reviewed publication dedicated to advancing research in management, accounting, finance,
                         and administration. Our mission is to bridge theoretical knowledge with practical applications,
@@ -212,311 +255,184 @@
         </div>
     </section>
 
+    <?php
+    // Database connection configuration
+    $host = "localhost";
+    $db   = "fms";
+    $user = "root";
+    $pass = "";
+
+    $conn = new mysqli($host, $user, $pass, $db);
+    if ($conn->connect_error) {
+        error_log("DB Connection failed: " . $conn->connect_error);
+        die("Database connection failed.");
+    }
+
+    // Fetch 5 random published or approved articles
+    $sql = "SELECT a.id, a.title, a.abstract, a.keywords, a.submission_date, a.published_date, a.journal, a.image_path, a.doi, a.file_path, a.status,
+               CONCAT(u.first_name, ' ', u.last_name) AS author_name
+        FROM articles a
+        LEFT JOIN users u ON a.submitted_by = u.id
+        WHERE a.status IN ('approved', 'published')
+        ORDER BY RAND()
+        LIMIT 5";
+
+    $result = $conn->query($sql);
+    ?>
+
     <section id="features" class="research-areas">
         <div class="container">
-            <h2 class="section-title">Research Areas</h2>
-            <p class="section-description">Explore our comprehensive coverage of management science disciplines</p>
+            <h2 class="section-title">Featured Articles</h2>
+            <p class="section-description">Explore a selection of our latest research publications</p>
 
             <div class="areas-grid">
-                <div class="area-card featured">
-                    <div class="area-image">
-                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
-                            alt="Financial Reporting">
-                        <div class="area-overlay">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                    </div>
-                    <div class="area-content">
-                        <h3>Financial Reporting & Analysis</h3>
-                        <p>Advanced research in financial reporting standards, analysis techniques, and regulatory
-                            compliance.</p>
-                        <div class="area-tags">
-                            <span class="tag">IFRS</span>
-                            <span class="tag">Financial Analysis</span>
-                            <span class="tag">Compliance</span>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                if ($result && $result->num_rows > 0) {
+                    $is_first = true;
+                    while ($row = $result->fetch_assoc()) {
+                        $imagePath = !empty($row['image_path']) && file_exists(__DIR__ . '/Uploads/images/' . basename($row['image_path']))
+                            ? 'Uploads/images/' . htmlspecialchars(basename($row['image_path']))
+                            : 'https://plus.unsplash.com/premium_photo-1669652639356-f5cb1a086976?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0';
+                        $authorName = !empty($row['author_name']) ? htmlspecialchars($row['author_name']) : 'Unknown Author';
+                        $isFeatured = $is_first ? ' featured' : '';
+                        $fileExtension = strtolower(pathinfo($row['file_path'], PATHINFO_EXTENSION));
+                        $downloadLabel = ($fileExtension === 'pdf') ? 'Download PDF' : 'Download Document';
+                        $filePath = ltrim($row['file_path'], '/\\');
 
-                <div class="area-card">
-                    <div class="area-image">
-                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
-                            alt="International Accounting">
-                        <div class="area-overlay">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                    </div>
-                    <div class="area-content">
-                        <h3>International Accounting</h3>
-                        <p>Cross-border accounting practices and international financial reporting standards.</p>
-                        <div class="area-tags">
-                            <span class="tag">Global Standards</span>
-                            <span class="tag">Cross-border</span>
-                        </div>
-                    </div>
-                </div>
+                        // Log file path for debugging
+                        error_log("File path for article {$row['id']}: {$filePath}");
+                        error_log("Full file path: " . __DIR__ . '/' . $filePath);
+                        error_log("File exists: " . (file_exists(__DIR__ . '/' . $filePath) ? 'Yes' : 'No'));
 
-                <div class="area-card">
-                    <div class="area-image">
-                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
-                            alt="Forensic Accounting">
-                        <div class="area-overlay">
-                            <i class="fas fa-search-dollar"></i>
-                        </div>
-                    </div>
-                    <div class="area-content">
-                        <h3>Forensic Accounting</h3>
-                        <p>Investigation techniques, fraud detection, and financial crime analysis.</p>
-                        <div class="area-tags">
-                            <span class="tag">Fraud Detection</span>
-                            <span class="tag">Investigation</span>
-                        </div>
-                    </div>
-                </div>
+                        echo '<div class="area-card' . $isFeatured . '">';
+                        echo '<div class="area-image">';
+                        echo '<img src="' . $imagePath . '" alt="' . htmlspecialchars($row['title']) . '">';
+                        echo '<div class="area-overlay">';
+                        echo '<i class="fas fa-book"></i>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '<div class="area-content">';
+                        echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
+                        echo '<p>' . htmlspecialchars(substr($row['abstract'], 0, 100)) . '...</p>';
+                        echo '<div class="area-tags">';
+                        echo '<span class="tag">' . htmlspecialchars($row['journal']) . '</span>';
+                        echo '<span class="tag">' . $authorName . '</span>';
+                        echo '</div>';
+                        echo '<div class="area-actions">';
+                        echo '<a href="' . htmlspecialchars($filePath) . '" class="btn btn-outline btn-small" download="' . htmlspecialchars(basename($row['file_path'])) . '"><i class="fas fa-download"></i> ' . $downloadLabel . '</a>';
+                        echo '<a href="view_details.php?id=' . htmlspecialchars($row['id']) . '" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Read Full Article</a>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
 
-                <div class="area-card">
-                    <div class="area-image">
-                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
-                            alt="FinTech">
-                        <div class="area-overlay">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                    </div>
-                    <div class="area-content">
-                        <h3>Financial Technology</h3>
-                        <p>Digital transformation in finance, blockchain, and AI applications in financial services.</p>
-                        <div class="area-tags">
-                            <span class="tag">Blockchain</span>
-                            <span class="tag">AI</span>
-                            <span class="tag">Digital Finance</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="area-card">
-                    <div class="area-image">
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
-                            alt="Corporate Governance">
-                        <div class="area-overlay">
-                            <i class="fas fa-building"></i>
-                        </div>
-                    </div>
-                    <div class="area-content">
-                        <h3>Corporate Governance</h3>
-                        <p>Board effectiveness, stakeholder management, and corporate responsibility.</p>
-                        <div class="area-tags">
-                            <span class="tag">Board Management</span>
-                            <span class="tag">ESG</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="area-card">
-                    <div class="area-image">
-                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
-                            alt="Sustainability">
-                        <div class="area-overlay">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                    </div>
-                    <div class="area-content">
-                        <h3>Sustainability Accounting</h3>
-                        <p>Environmental accounting, sustainability reporting, and green finance.</p>
-                        <div class="area-tags">
-                            <span class="tag">ESG Reporting</span>
-                            <span class="tag">Green Finance</span>
-                        </div>
-                    </div>
-                </div>
+                        $is_first = false;
+                    }
+                } else {
+                    echo '<p>No articles found.</p>';
+                }
+                ?>
             </div>
         </div>
     </section>
+
+    <?php
+    // Close database connection
+    $conn->close();
+    ?>
+    <?php
+    // Database connection configuration
+    $host = "localhost";
+    $db   = "fms";
+    $user = "root";
+    $pass = "";
+
+    $conn = new mysqli($host, $user, $pass, $db);
+    if ($conn->connect_error) {
+        error_log("DB Connection failed: " . $conn->connect_error);
+        die("Database connection failed.");
+    }
+
+    // Fetch the last 4 published or approved articles
+    $sql = "SELECT a.id, a.title, a.abstract, a.keywords, a.submission_date, a.published_date, a.journal, a.image_path, a.doi, a.file_path, a.status,
+               CONCAT(u.first_name, ' ', u.last_name) AS author_name
+        FROM articles a
+        LEFT JOIN users u ON a.submitted_by = u.id
+        WHERE a.status IN ('approved', 'published')
+        ORDER BY COALESCE(a.published_date, a.submission_date) DESC
+        LIMIT 4";
+
+    $result = $conn->query($sql);
+    ?>
 
     <section id="publications" class="publications">
         <div class="container">
             <div class="publications-header">
                 <h2 class="section-title">Latest Publications</h2>
-                <p class="section-description">Discover groundbreaking research from our latest issue - Vol. 2 No. 1
-                    (2025)</p>
-                <div class="publication-filters">
-                    <button class="filter-btn active" data-filter="all">All Articles</button>
-                    <button class="filter-btn" data-filter="finance">Finance</button>
-                    <button class="filter-btn" data-filter="accounting">Accounting</button>
-                    <button class="filter-btn" data-filter="management">Management</button>
-                    <button class="filter-btn" data-filter="technology">Technology</button>
-                </div>
+                <p class="section-description">Discover groundbreaking research from our latest (2025)</p>
+                <!-- <div class="publication-filters">
+                <button class="filter-btn active" data-filter="all">All Articles</button>
+                <button class="filter-btn" data-filter="finance">Finance</button>
+                <button class="filter-btn" data-filter="accounting">Accounting</button>
+                <button class="filter-btn" data-filter="management">Management</button>
+                <button class="filter-btn" data-filter="technology">Technology</button>
+            </div> -->
             </div>
 
             <div class="publications-grid">
-                <article class="publication-card featured" data-category="technology">
-                    <div class="publication-image">
-                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
-                            alt="AI in Marketing Research">
-                        <div class="publication-badge">Featured</div>
-                        <div class="publication-category">Technology</div>
-                    </div>
-                    <div class="publication-content">
-                        <div class="publication-meta">
-                            <span class="publication-date">
-                                <i class="fas fa-calendar"></i>
-                                March 2025
-                            </span>
-                            <span class="publication-views">
-                                <i class="fas fa-eye"></i>
-                                2.3k views
-                            </span>
-                        </div>
-                        <h3>The Impact of Artificial Intelligence on Marketing Strategies in Nigerian Businesses</h3>
-                        <div class="authors">
-                            <div class="author">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80"
-                                    alt="Dr. Ahmed Mohammed" class="author-avatar">
-                                <span>Dr. Ahmed Mohammed</span>
-                            </div>
-                            <div class="author">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80"
-                                    alt="Prof. Kemi Johnson" class="author-avatar">
-                                <span>Prof. Kemi Johnson</span>
-                            </div>
-                        </div>
-                        <p class="abstract">This comprehensive study examines how artificial intelligence technologies
-                            are revolutionizing marketing strategies across various sectors in Nigeria, with particular
-                            focus on customer engagement and predictive analytics...</p>
-                        <div class="publication-actions">
-                            <a href="#" class="btn btn-outline btn-small">
-                                <i class="fas fa-download"></i>
-                                Download PDF
-                            </a>
-                            <a href="#" class="btn btn-primary btn-small">
-                                <i class="fas fa-external-link-alt"></i>
-                                Read Full Article
-                            </a>
-                        </div>
-                    </div>
-                </article>
+                <?php
+                if ($result && $result->num_rows > 0) {
+                    $is_first = true;
+                    while ($row = $result->fetch_assoc()) {
+                        $imagePath = !empty($row['image_path']) && file_exists(__DIR__ . '/Uploads/images/' . basename($row['image_path']))
+                            ? 'Uploads/images/' . htmlspecialchars(basename($row['image_path']))
+                            : 'https://plus.unsplash.com/premium_photo-1669652639356-f5cb1a086976?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+                        $publishedDate = !empty($row['published_date']) ? date('F Y', strtotime($row['published_date'])) : 'Not published';
+                        $authorName = !empty($row['author_name']) ? htmlspecialchars($row['author_name']) : 'Unknown Author';
+                        $category = strtolower(htmlspecialchars($row['journal']));
+                        $isFeatured = $is_first ? ' featured' : '';
+                        $badge = $is_first ? '<div class="publication-badge">Featured</div>' : '';
+                        $fileExtension = strtolower(pathinfo($row['file_path'], PATHINFO_EXTENSION));
+                        $downloadLabel = ($fileExtension === 'pdf') ? 'Download PDF' : 'Download Document';
 
-                <article class="publication-card" data-category="finance">
-                    <div class="publication-image">
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
-                            alt="Banking Systems Research">
-                        <div class="publication-category">Finance</div>
-                    </div>
-                    <div class="publication-content">
-                        <div class="publication-meta">
-                            <span class="publication-date">
-                                <i class="fas fa-calendar"></i>
-                                March 2025
-                            </span>
-                            <span class="publication-views">
-                                <i class="fas fa-eye"></i>
-                                1.8k views
-                            </span>
-                        </div>
-                        <h3>Integrated Financial Accounting Systems and Operational Performance of Deposit Money Banks
-                        </h3>
-                        <div class="authors">
-                            <div class="author">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80"
-                                    alt="Dr. Emmanuel Okafor" class="author-avatar">
-                                <span>Dr. Emmanuel Okafor</span>
-                            </div>
-                        </div>
-                        <p class="abstract">An empirical analysis of how integrated financial accounting systems enhance
-                            operational efficiency and performance metrics in Nigerian deposit money banks...</p>
-                        <div class="publication-actions">
-                            <a href="#" class="btn btn-outline btn-small">
-                                <i class="fas fa-download"></i>
-                                Download PDF
-                            </a>
-                            <a href="#" class="btn btn-primary btn-small">
-                                <i class="fas fa-external-link-alt"></i>
-                                Read Full Article
-                            </a>
-                        </div>
-                    </div>
-                </article>
+                        // Clean and normalize file path
+                        $filePath = ltrim($row['file_path'], '/\\');
+                        // Log file path for debugging
+                        error_log("File path for article {$row['id']}: {$filePath}");
+                        error_log("Full file path: " . __DIR__ . '/' . $filePath);
+                        error_log("File exists: " . (file_exists(__DIR__ . '/' . $filePath) ? 'Yes' : 'No'));
 
-                <article class="publication-card" data-category="accounting">
-                    <div class="publication-image">
-                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
-                            alt="Cloud Accounting Research">
-                        <div class="publication-category">Accounting</div>
-                    </div>
-                    <div class="publication-content">
-                        <div class="publication-meta">
-                            <span class="publication-date">
-                                <i class="fas fa-calendar"></i>
-                                February 2025
-                            </span>
-                            <span class="publication-views">
-                                <i class="fas fa-eye"></i>
-                                1.5k views
-                            </span>
-                        </div>
-                        <h3>Cloud Accounting and the Qualitative Characteristics of Financial Reporting</h3>
-                        <div class="authors">
-                            <div class="author">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80"
-                                    alt="Dr. Sarah Ibrahim" class="author-avatar">
-                                <span>Dr. Sarah Ibrahim</span>
-                            </div>
-                        </div>
-                        <p class="abstract">This research explores how cloud-based accounting technologies influence the
-                            qualitative characteristics of financial reporting in modern business environments...</p>
-                        <div class="publication-actions">
-                            <a href="#" class="btn btn-outline btn-small">
-                                <i class="fas fa-download"></i>
-                                Download PDF
-                            </a>
-                            <a href="#" class="btn btn-primary btn-small">
-                                <i class="fas fa-external-link-alt"></i>
-                                Read Full Article
-                            </a>
-                        </div>
-                    </div>
-                </article>
+                        echo '<article class="publication-card' . $isFeatured . '" data-category="' . $category . '">';
+                        echo '<div class="publication-image">';
+                        echo '<img src="' . $imagePath . '" alt="' . htmlspecialchars($row['title']) . '">';
+                        echo $badge;
+                        echo '<div class="publication-category">' . htmlspecialchars($row['journal']) . '</div>';
+                        echo '</div>';
+                        echo '<div class="publication-content">';
+                        echo '<div class="publication-meta">';
+                        echo '<span class="publication-date"><i class="fas fa-calendar"></i> ' . $publishedDate . '</span>';
+                        echo '<span class="publication-views"><i class="fas fa-eye"></i> N/A views</span>';
+                        echo '</div>';
+                        echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
+                        echo '<div class="authors">';
+                        echo '<div class="author">';
+                        echo '<img src="https://plus.unsplash.com/premium_photo-1667251760208-5149aa5a2f48?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="' . $authorName . '" class="author-avatar">';
+                        echo '<span>' . $authorName . '</span>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '<p class="abstract">' . htmlspecialchars(substr($row['abstract'], 0, 150)) . '...</p>';
+                        echo '<div class="publication-actions">';
+                        echo '<a href="' . htmlspecialchars($filePath) . '" class="btn btn-outline btn-small" download="' . htmlspecialchars(basename($row['file_path'])) . '"><i class="fas fa-download"></i> ' . $downloadLabel . '</a>';
+                        echo '<a href="view_details.php?id=' . htmlspecialchars($row['id']) . '" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Read Full Article</a>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</article>';
 
-                <article class="publication-card" data-category="management">
-                    <div class="publication-image">
-                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
-                            alt="HR Management Research">
-                        <div class="publication-category">Management</div>
-                    </div>
-                    <div class="publication-content">
-                        <div class="publication-meta">
-                            <span class="publication-date">
-                                <i class="fas fa-calendar"></i>
-                                February 2025
-                            </span>
-                            <span class="publication-views">
-                                <i class="fas fa-eye"></i>
-                                1.2k views
-                            </span>
-                        </div>
-                        <h3>Effect of Human Resource Management Practices on Employee Performance in Private
-                            Universities</h3>
-                        <div class="authors">
-                            <div class="author">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=40&q=80"
-                                    alt="Prof. Fatima Adebayo" class="author-avatar">
-                                <span>Prof. Fatima Adebayo</span>
-                            </div>
-                        </div>
-                        <p class="abstract">A comprehensive study examining the relationship between strategic human
-                            resource management practices and employee performance outcomes in Nigerian private
-                            universities...</p>
-                        <div class="publication-actions">
-                            <a href="#" class="btn btn-outline btn-small">
-                                <i class="fas fa-download"></i>
-                                Download PDF
-                            </a>
-                            <a href="#" class="btn btn-primary btn-small">
-                                <i class="fas fa-external-link-alt"></i>
-                                Read Full Article
-                            </a>
-                        </div>
-                    </div>
-                </article>
+                        $is_first = false;
+                    }
+                } else {
+                    echo '<p>No recent publications found.</p>';
+                }
+                ?>
             </div>
 
             <div class="view-all-section">
@@ -528,6 +444,11 @@
             </div>
         </div>
     </section>
+
+    <?php
+    // Close database connection
+    $conn->close();
+    ?>
 
     <section id="submission" class="submission">
         <div class="container">
@@ -629,7 +550,7 @@
             <div class="submission-cta">
                 <div class="cta-content">
                     <h3>Ready to Submit Your Research?</h3>
-                    <p>Join thousands of researchers who have published with FMS Journal</p>
+                    <p>Join thousands of researchers who have published with SAHEL Analyst</p>
                     <div class="cta-buttons">
                         <a href="signup.php" class="btn btn-primary btn-large">
                             <i class="fas fa-user-plus"></i>
@@ -658,7 +579,7 @@
                             <i class="fas fa-graduation-cap"></i>
                         </div>
                         <div class="logo-text">
-                            <h2>FMS Journal</h2>
+                            <h2>SAHEL Analyst</h2>
                             <p>Faculty of Management Science</p>
                         </div>
                     </div>
@@ -688,7 +609,7 @@
                         <h3>Journal</h3>
                         <ul>
                             <li><a href="#about">About Us</a></li>
-                            <li><a href="#features">Research Areas</a></li>
+                            <li><a href="all_articles.php">All articles</a></li>
                             <li><a href="#publications">Current Issue</a></li>
                             <li><a href="#">Archives</a></li>
                             <li><a href="#">Editorial Board</a></li>
@@ -747,7 +668,7 @@
 
             <div class="footer-bottom">
                 <div class="footer-bottom-content">
-                    <p>&copy; 2025 FMS Journal - Faculty of Management Science. All rights reserved.</p>
+                    <p>&copy; 2025 SAHEL Analyst - Faculty of Management Science. All rights reserved.</p>
                     <div class="footer-bottom-links">
                         <a href="#">Privacy Policy</a>
                         <a href="#">Terms of Service</a>
